@@ -17,6 +17,7 @@ import margin from './src/margin';
 // Typography
 import textColor from './src/text-color';
 import textSize from './src/text-size';
+import textAlign from "./src/text-align";
 import textStyle from './src/text-style';
 import textTransform from './src/text-transform';
 import letterSpacing from './src/letter-spacing';
@@ -79,6 +80,7 @@ let map = {
   // Typography
   ...textSize,
   ...textColor,
+  ...textAlign,
   ...textStyle,
   ...textTransform,
   ...letterSpacing,
@@ -129,22 +131,33 @@ let map = {
 };
 
 /**
+ * Font family helper
+ */
+const family = (name) => ({
+  fontFamily: name
+})
+
+/**
  * Helper function for group styling
  */
-const apply = (namespace, custom) => {
+const apply = (namespace) => {
   let obj = {};
 
   namespace.map((item) => {
-    obj = {
-      ...obj,
-      ...map[item]
+    if (typeof item === "object") {
+      obj = {
+        ...obj,
+        ...item
+      }
+    } else {
+      obj = {
+        ...obj,
+        ...map[item]
+      }
     }
   });
 
-  return custom ? {
-    ...obj,
-    ...custom
-  } : obj
+  return obj
 };
 
 /**
@@ -173,6 +186,7 @@ const styles = (namespace) => {
 export {
   colors,
   apply,
+  family,
   scaleWidth,
   scaleHeight
 }
