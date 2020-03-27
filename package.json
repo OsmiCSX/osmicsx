@@ -1,0 +1,35 @@
+{
+  "name": "osmicsx",
+  "version": "0.1.0",
+  "description": "An utility style framework for React Native.",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": "https://github.com/OsmiCSX/osmicsx.git",
+  "bugs": "https://github.com/OsmiCSX/osmicsx/issues",
+  "contributors": [
+    "Rully Ardiansyah <de.voresyah@gmail.com>"
+  ],
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "8.9.0"
+          }
+        }
+      ]
+    ]
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  }
+}

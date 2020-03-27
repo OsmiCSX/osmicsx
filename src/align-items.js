@@ -1,0 +1,9 @@
+const alignItems = {
+  "items-stretch": { alignItems: "stretch" },
+  "items-start": { alignItems: "flex-start" },
+  "items-center": { alignItems: "center" },
+  "items-end": { alignItems: "flex-end" },
+  "items-baseline": { alignItems: "baseline" },
+};
+
+export default alignItems

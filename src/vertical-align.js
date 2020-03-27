@@ -1,0 +1,8 @@
+const verticalAlign = {
+  "align-auto": { textAlignVertical: "auto" },
+  "align-top": { textAlignVertical: "top" },
+  "align-center": { textAlignVertical: "center" },
+  "align-bottom": { textAlignVertical: "bottom" },
+};
+
+export default verticalAlign
