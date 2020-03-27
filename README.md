@@ -13,4 +13,4 @@
 
 ## Documentation
 
-We are currently working on full documentation.
+We are currently working on full documentation. For full documentation please check https://osmicsx.github.io/docs/
