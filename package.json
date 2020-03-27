@@ -9,6 +9,13 @@
   "contributors": [
     "Rully Ardiansyah <de.voresyah@gmail.com>"
   ],
+  "keywords": [
+    "style",
+    "react-native",
+    "framework",
+    "framework",
+    "javascript"
+  ],
   "scripts": {
     "test": "echo \"No test specified\""
   },
