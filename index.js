@@ -38,7 +38,7 @@ import alignSelf from './src/align-self';
 import justifyContent from './src/justify-content';
 
 // Border
-import borderColor from './src/border.color';
+import borderColor from './src/border-color';
 import borderStyle from './src/border-style';
 import borderWidth from './src/border-width';
 import borderRadius from './src/border-radius';
@@ -64,6 +64,9 @@ import trbl from './src/trbl';
 
 // Z-Index
 import zIndex from './src/z-index';
+
+// Import Scale Utility
+import { scaleWidth, scaleHeight } from './lib/scale'
 
 /**
  * Mapping all styles
@@ -169,7 +172,9 @@ const styles = (namespace) => {
  */
 export {
   colors,
-  apply
+  apply,
+  scaleWidth,
+  scaleHeight
 }
 
 export default styles
