@@ -3,7 +3,27 @@ const borderWidth = {
   "border-0": { borderWidth: 0 },
   "border-2": { borderWidth: 2 },
   "border-4": { borderWidth: 4 },
-  "border-8": { borderWidth: 8 }
+  "border-8": { borderWidth: 8 },
+  "border-t": { borderTop: 1 },
+  "border-r": { borderRight: 1 },
+  "border-b": { borderBottom: 1 },
+  "border-l": { borderLeft: 1 },
+  "border-t-0": {borderTop: 0},
+  "border-r-0": {borderRight: 0},
+  "border-b-0": {borderBottom: 0},
+  "border-l-0": {borderLeft: 0},
+  "border-t-2": {borderTop: 2},
+  "border-r-2": {borderRight: 2},
+  "border-b-2": {borderBottom: 2},
+  "border-l-2": {borderLeft: 2},
+  "border-t-4": {borderTop: 4},
+  "border-r-4": {borderRight: 4},
+  "border-b-4": {borderBottom: 4},
+  "border-l-4": {borderLeft: 4},
+  "border-t-8": {borderTop: 8},
+  "border-r-8": {borderRight: 8},
+  "border-b-8": {borderBottom: 8},
+  "border-l-8": {borderLeft: 8},
 };
 
 export default borderWidth

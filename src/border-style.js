@@ -1,7 +1,7 @@
 const borderStyle = {
-  "border-solid": { borderStyle: "border-solid" },
-  "border-dotted": { borderStyle: "border-dotted" },
-  "border-dashed": { borderStyle: "border-dashed" },
+  "border-solid": { borderStyle: "solid" },
+  "border-dotted": { borderStyle: "dotted" },
+  "border-dashed": { borderStyle: "dashed" },
 };
 
 export default borderStyle
