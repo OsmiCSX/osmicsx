@@ -22,9 +22,13 @@ import OsmiProvider from './lib/provider'
 /**
  * Font family helper
  */
-const family = (name) => ({
-  fontFamily: name
-});
+const family = (name) => {
+  console.warn("family method is deprecated and will be removed in the next OsmiCSX update.");
+
+  return {
+    fontFamily: name
+  }
+};
 
 /**
  * Helper function for group styling
@@ -53,6 +57,8 @@ const apply = (namespace) => {
  * Default method for styling
  */
 const styles = (namespace) => {
+  console.warn("default method is deprecated and will be removed in the next OsmiCSX update.");
+
   let obj = {};
 
   if (Array.isArray(namespace)) {
