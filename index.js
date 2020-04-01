@@ -8,7 +8,7 @@
  */
 
 // Base Color
-import colors from './data/colors'
+import colors from './data/colors.json'
 
 // Import Namespace Map
 import map from './data/map'
