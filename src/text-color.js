@@ -1,4 +1,4 @@
-import colors from '../data/colors'
+import colors from '../data/colors.json'
 
 const textColor = {
   "text-transparent": { color: colors.transparent },

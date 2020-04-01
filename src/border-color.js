@@ -1,4 +1,4 @@
-import colors from '../data/colors';
+import colors from '../data/colors.json';
 
 const borderColor = {
   "border-transparent": { borderColor: colors.transparent },
