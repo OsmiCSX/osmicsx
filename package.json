@@ -18,12 +18,14 @@
     "javascript"
   ],
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.0.0"
+    "@babel/preset-env": "^7.0.0",
+    "react-native": "^0.62.2",
+    "jest": "^25.4.0"
   },
   "babel": {
     "presets": [
