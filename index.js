@@ -11,7 +11,7 @@
 import colors from './data/colors.json'
 
 // Import Scale Utility
-import { scaleWidth, scaleHeight } from './src/scale';
+import { scaleWidth, scaleHeight } from './lib/responsive';
 
 // Import Provider
 import OsmiProvider from './lib/provider'
