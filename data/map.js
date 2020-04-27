@@ -1,3 +1,6 @@
+// Colors
+import colors from './colors.json'
+
 // Spacing
 import padding from '../src/padding';
 import margin from '../src/margin';
@@ -61,6 +64,9 @@ import { scaleWidth, scaleHeight } from '../src/scale'
  * Mapping all styles
  */
 export default {
+  // Colors
+  ...colors,
+
   // Spacing
   ...padding,
   ...margin,
