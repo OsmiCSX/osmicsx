@@ -1,6 +1,7 @@
 .idea
 .DS_Store
-__tests__
 coverage
 node_modules
 yarn-error.log
+yarn.lock
+package-lock.json
