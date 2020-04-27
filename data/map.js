@@ -57,9 +57,6 @@ import trbl from '../src/trbl';
 // Z-Index
 import zIndex from '../src/z-index';
 
-// Import Scale Utility
-import { scaleWidth, scaleHeight } from '../src/scale'
-
 /**
  * Mapping all styles
  */
