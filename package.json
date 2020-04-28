@@ -1,6 +1,6 @@
 {
   "name": "osmicsx",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "An utility style framework for React Native.",
   "license": "MIT",
   "main": "index.js",
@@ -18,12 +18,15 @@
     "javascript"
   ],
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.0.0"
+    "@babel/preset-env": "^7.0.0",
+    "jest": "^25.4.0",
+    "react": "16.11.0",
+    "react-native": "0.62.0"
   },
   "babel": {
     "presets": [

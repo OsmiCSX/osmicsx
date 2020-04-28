@@ -1,3 +1,6 @@
+// Colors
+import colors from './colors.json'
+
 // Spacing
 import padding from '../src/padding';
 import margin from '../src/margin';
@@ -5,6 +8,7 @@ import margin from '../src/margin';
 // Typography
 import textColor from '../src/text-color';
 import textSize from '../src/text-size';
+import textResponsive from "../src/text-responsive";
 import textAlign from '../src/text-align';
 import textStyle from '../src/text-style';
 import textTransform from '../src/text-transform';
@@ -54,19 +58,20 @@ import trbl from '../src/trbl';
 // Z-Index
 import zIndex from '../src/z-index';
 
-// Import Scale Utility
-import { scaleWidth, scaleHeight } from '../src/scale'
-
 /**
  * Mapping all styles
  */
 export default {
+  // Colors
+  ...colors,
+
   // Spacing
   ...padding,
   ...margin,
 
   // Typography
   ...textSize,
+  ...textResponsive,
   ...textColor,
   ...textAlign,
   ...textStyle,
