@@ -16,3 +16,21 @@ For full documentation, please check https://osmicsx.github.io/docs/
 
 ## Based on TailwindCSS
 OsmiCSX adopt the TailwindCSS concept. We want to React Native can do the same thing, styling the component just by calling the style name. But as we know that React Native not using CSS browser, so that's the main purpose of OsmiCSX.
+
+## Need Boilerplate? Try ⚡ Osmi CLI
+Initializing React Native project and setup all the configuration will take time, and OsmiCSX proudly present Osmi CLI that will help you to initialize your React Native Project with awesome boilerplate (Osmi Kit).
+
+Osmi Kit include the following rock-solid technical decisions out of the box:
+- React Native
+- React Navigation 5
+- OsmiCSX
+- Redux-Saga
+- Redux-Persist
+- AsyncStorage
+- apisauce (to talk to REST servers)
+- Flipper-ready
+- Reactotron-ready
+- TDD-ready
+- And more!
+
+### [Quick Start](https://github.com/OsmiCSX/osmi)
