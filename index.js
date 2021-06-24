@@ -7,9 +7,6 @@
  * file that was distributed with this source code.
  */
 
-// Base Color
-import colors from './data/colors.json'
-
 // Import Scale Utility
 import { scaleWidth, scaleHeight } from './lib/responsive';
 
@@ -23,7 +20,6 @@ import apply from './lib/apply'
  * Export helper method
  */
 export {
-  colors,
   apply,
   scaleWidth,
   scaleHeight,

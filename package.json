@@ -2,6 +2,7 @@
   "name": "osmicsx",
   "version": "0.5.1",
   "description": "An utility style framework for React Native.",
+  "type": "module",
   "license": "MIT",
   "main": "index.js",
   "repository": "https://github.com/OsmiCSX/osmicsx.git",
@@ -39,6 +40,13 @@
         }
       ]
     ]
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
+    "testEnvironment": "node"
   },
   "engines": {
     "node": ">=8.9.0"
