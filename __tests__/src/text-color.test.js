@@ -1,15 +1,9 @@
-import textColor from "../../src/text-color";
-import colors from "../../data/colors.json";
+import apply from "../../lib/apply"
 
-test('text-transparent namespace', () => {
-  expect(textColor["text-transparent"]).toEqual({ color: colors["transparent"] })
+test("text-black with default opacity", () => {
+  expect(apply("text-black")).toEqual({ color: "rgba(0, 0, 0, 1)"})
 })
 
-test('text-black namespace', () => {
-  expect(textColor["text-black"]).toEqual({ color: colors["black"] })
+test("text-black with opacity 25", () => {
+  expect(apply("text-black text-opacity-25")).toEqual({ color: "rgba(0, 0, 0, 0.25)"})
 })
-
-test('text-white namespace', () => {
-  expect(textColor["text-white"]).toEqual({ color: colors["white"] })
-})
-
