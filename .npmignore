@@ -2,7 +2,11 @@
 .DS_Store
 /__tests__/
 /coverage/
-node_modules
+node_modules/
 yarn-error.log
 yarn.lock
 package-lock.json
+src/
+tsconfig.json
+tslint.json
+.prettierrc
