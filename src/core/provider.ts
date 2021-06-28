@@ -1,4 +1,3 @@
-
 import { StyleSheet } from "react-native"
 import map from "../predefined/map"
 
@@ -25,7 +24,11 @@ export default class OsmiProvider {
     this.height = scaleHeight
   }
 
-  // connect function for templating purpose
+  /**
+   * Create list of object style with pre-defined styles
+   * @param {object} style list of styles wrapped with object
+   * @returns Stylesheet react-native
+   */
   connect(style: object) {
     let objStyle: any = {}
 
@@ -58,11 +61,15 @@ export default class OsmiProvider {
     return StyleSheet.create(objStyle)
   };
 
-  // apply function for inline style
-  apply() {
+  /**
+   * Apply some pre-defined styles
+   * @param {string} args list of pre-definedstyle args
+   * @returns {object}
+   */
+  apply(args: string) {
     const instanceStyle = new Instance(this._predefined)
 
-    const arrStyle = arguments[0].split(" ")
+    const arrStyle = args.split(" ")
 
     arrStyle.map((syntax: string) => {
       // check if width & size using responsive method or not
