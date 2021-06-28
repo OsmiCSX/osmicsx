@@ -10,3 +10,4 @@ src/
 tsconfig.json
 tslint.json
 .prettierrc
+dist/

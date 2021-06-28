@@ -1,7 +1,9 @@
 import Instance from "./instance"
 
 /**
- * Helper function for group styling
+ * Apply some pre-defined styles
+ * @param {string} args list of pre-definedstyle args
+ * @returns {object}
  */
 const apply = (args: string): object => {
   const instanceStyle = new Instance()

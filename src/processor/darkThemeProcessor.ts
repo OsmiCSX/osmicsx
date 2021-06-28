@@ -1,4 +1,4 @@
-import { useColorScheme } from "react-native"
+import { Appearance } from "react-native"
 import { BackgroundDark, BorderDark, TextDark } from "./processor.type"
 
 // Processor to detect and replace if it's using dark theme
@@ -11,7 +11,7 @@ export default (
   let processedStyle = styles
 
   // only repalce if color scheme is dark
-  if (useColorScheme() === "dark") {
+  if (Appearance.getColorScheme() === "dark") {
     if (bgDark) {
       processedStyle = {
         ...processedStyle,
