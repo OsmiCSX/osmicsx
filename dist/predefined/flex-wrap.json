@@ -1,4 +1,0 @@
-{
-    "wrap": { "flexWrap": "wrap" },
-    "no-wrap": { "flexWrap": "nowrap" }
-}
