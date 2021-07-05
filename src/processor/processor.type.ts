@@ -36,7 +36,7 @@ export interface CustomTheme {
   spacing?: object,
   border?: CustomBorder,
   font?: CustomFonts,
-  lineHeight: object,
-  letterSpacing: object,
-  shadow: Shadows
+  lineHeight?: object,
+  letterSpacing?: object,
+  shadow?: Shadows
 }
