@@ -15,6 +15,7 @@ import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.typ
 
 export default class Instance {
   _predefined: object | any
+  _appearanceMode?: string
   _obj: object
   _bgOpacity: number
   _borderOpacity: number
@@ -23,8 +24,9 @@ export default class Instance {
   _borderDark?: BorderDark
   _textDark?: TextDark
 
-  constructor(customStyle?: object) {
+  constructor(customStyle?: object, appearance?: string) {
     this._predefined = customStyle ? customStyle : map
+    this._appearanceMode = appearance
     this._obj = {}
     this._bgOpacity = 100
     this._borderOpacity = 100
@@ -139,7 +141,7 @@ export default class Instance {
    * @returns {*|{}}
    */
   getOutputStyle() {
-    this._obj = darkThemeProcessor(this._obj, this._bgDark, this._borderDark, this._textDark)
+    this._obj = darkThemeProcessor(this._obj, this._appearanceMode, this._bgDark, this._borderDark, this._textDark)
 
     return opacityProcessor(this._obj, this._bgOpacity, this._borderOpacity, this._textOpacity)
   }

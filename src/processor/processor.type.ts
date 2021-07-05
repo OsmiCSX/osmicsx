@@ -20,9 +20,23 @@ export interface CustomFonts {
   size?: object
 }
 
+export interface Shadows {
+  shadowColor: string,
+  shadowOffset: {
+    width: number,
+    height: number
+  },
+  shadowOpacity: number,
+  shadowRadius: number,
+  elevation: number
+}
+
 export interface CustomTheme {
   colors?: object,
   spacing?: object,
   border?: CustomBorder,
-  font?: CustomFonts
+  font?: CustomFonts,
+  lineHeight: object,
+  letterSpacing: object,
+  shadow: Shadows
 }
