@@ -2,7 +2,7 @@
 import hexToRGBA from "../lib/hexToRGBA"
 
 // import type
-import { CustomTheme, CustomBorder, CustomFonts } from "./processor.type"
+import { CustomTheme, CustomBorder, CustomFonts, Shadows } from "./processor.type"
 
 // custom colors processor
 const customColors = (data: object): object => {
@@ -139,6 +139,48 @@ const customFonts = (object: CustomFonts): object => {
   return fontStyles
 }
 
+// custom line height processor
+const customLineHeights = (data: object): object => {
+  let lineHeights = {}
+
+  Object.entries(data).map(([key, value]) => {
+    lineHeights = {
+      ...lineHeights,
+      [key]: [value]
+    }
+  })
+
+  return lineHeights
+}
+
+// custom letter spacing processor
+const customLetterSpacings = (data: object): object => {
+  let letterSpacing = {}
+
+  Object.entries(data).map(([key, value]) => {
+    letterSpacing = {
+      ...letterSpacing,
+      [key]: [value]
+    }
+  })
+
+  return letterSpacing
+}
+
+// custom shadow processor
+const customShadows = (data: object): object => {
+  let shadow = {}
+
+  Object.entries(data).map(([key, value]) => {
+    shadow = {
+      ...shadow,
+      [key]: [value]
+    }
+  })
+
+  return shadow
+}
+
 // Processor to generate Custom Theme into Pre-defined Styles
 export default (customTheme: CustomTheme): object => {
   let finalObject = {}
@@ -172,6 +214,30 @@ export default (customTheme: CustomTheme): object => {
     finalObject = {
       ...finalObject,
       ...customFonts(customTheme?.font)
+    }
+  }
+
+  // mapping line heights
+  if (customTheme?.lineHeight) {
+    finalObject = {
+      ...finalObject,
+      ...customLineHeights(customTheme?.lineHeight)
+    }
+  }
+
+  // mapping letter spacing
+  if (customTheme?.letterSpacing) {
+    finalObject = {
+      ...finalObject,
+      ...customLetterSpacings(customTheme?.letterSpacing)
+    }
+  }
+
+  // mapping letter spacing
+  if (customTheme?.shadow) {
+    finalObject = {
+      ...finalObject,
+      ...customShadows(customTheme?.shadow)
     }
   }
 
