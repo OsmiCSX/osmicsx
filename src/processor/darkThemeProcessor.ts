@@ -4,14 +4,15 @@ import { BackgroundDark, BorderDark, TextDark } from "./processor.type"
 // Processor to detect and replace if it's using dark theme
 export default (
   styles: object,
-  bgDark: BackgroundDark | undefined,
-  borderDark: BorderDark | undefined,
-  textDark: TextDark | undefined
+  appearanceMode?: string,
+  bgDark?: BackgroundDark,
+  borderDark?: BorderDark,
+  textDark?: TextDark
 ): object => {
   let processedStyle = styles
 
   // only repalce if color scheme is dark
-  if (Appearance.getColorScheme() === "dark") {
+  if (appearanceMode === 'dark' || (appearanceMode === 'system' && Appearance.getColorScheme() === "dark")) {
     if (bgDark) {
       processedStyle = {
         ...processedStyle,

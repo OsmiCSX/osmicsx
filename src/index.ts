@@ -8,13 +8,16 @@
  */
 
 // Import Scale Utility
-import { scaleWidth, scaleHeight } from './lib/responsive';
+import { scaleWidth, scaleHeight } from './lib/responsive'
 
 // Import Provider
 import OsmiProvider from './core/provider'
 
 // Import apply() helper
 import apply from './core/apply'
+
+// Import appearanceHook
+import { appearanceHook } from './core/appearance'
 
 /**
  * Export helper method
@@ -23,5 +26,6 @@ export {
   apply,
   scaleWidth,
   scaleHeight,
-  OsmiProvider
+  OsmiProvider,
+  appearanceHook
 }

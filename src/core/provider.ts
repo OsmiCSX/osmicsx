@@ -3,9 +3,14 @@ import map from "../predefined/map"
 
 import Instance from "./instance"
 import CustomProcessor from "../processor/multiThemeProcessor"
+import { CustomTheme } from "../processor/processor.type"
 
 // Import Scale Utility
 import { scaleWidth, scaleHeight } from "../lib/responsive"
+
+// Import appearanceHook
+import { onPatch } from "mobx-state-tree"
+import { appearanceHook } from "./appearance"
 
 /**
  * Create OsmiProvider for custom theme
@@ -15,7 +20,7 @@ export default class OsmiProvider {
   width: (widthPercent: number) => number
   height: (heightPercent: number) => number
 
-  constructor(customStyle?: object) {
+  constructor(customStyle?: CustomTheme) {
     this._predefined = customStyle ? {
       ...map,
       ...CustomProcessor(customStyle)
@@ -32,34 +37,42 @@ export default class OsmiProvider {
   connect(style: object) {
     let objStyle: any = {}
 
-    Object.entries(style).forEach(([key, value]) => {
-      const instanceStyle = new Instance(this._predefined)
+    const _styleProcssing = (newTheme?: string) => {
+      Object.entries(style).forEach(([key, value]) => {
+        const instanceStyle = new Instance(this._predefined, newTheme)
 
-      value.split(" ").map((syntax: string) => {
-        // check if width & size using responsive method or not
-        instanceStyle.responsiveSize(syntax)
+        value.split(" ").map((syntax: string) => {
+          // check if width & size using responsive method or not
+          instanceStyle.responsiveSize(syntax)
 
-        // auto generate fixed width size
-        instanceStyle.fixedWidthSize(syntax)
+          // auto generate fixed width size
+          instanceStyle.fixedWidthSize(syntax)
 
-        // auto generate fixed width size
-        instanceStyle.fixedHeightSize(syntax)
+          // auto generate fixed width size
+          instanceStyle.fixedHeightSize(syntax)
 
-        // Check if there's coloring opacity
-        instanceStyle.colorOpacity(syntax)
+          // Check if there's coloring opacity
+          instanceStyle.colorOpacity(syntax)
 
-        // Check if there's any dark theme
-        instanceStyle.darkTheme(syntax)
+          // Check if there's any dark theme
+          instanceStyle.darkTheme(syntax)
 
-        // Generate from pre-defined styles
-        instanceStyle.predefinedStyles(syntax)
+          // Generate from pre-defined styles
+          instanceStyle.predefinedStyles(syntax)
+        })
+
+        objStyle[key] = instanceStyle.getOutputStyle()
       })
+    }
+    
+    _styleProcssing()
 
-      objStyle[key] = instanceStyle.getOutputStyle()
+    onPatch(appearanceHook, patch => {
+      _styleProcssing(patch.value)
     })
 
     return StyleSheet.create(objStyle)
-  };
+  }
 
   /**
    * Apply some pre-defined styles
@@ -94,11 +107,18 @@ export default class OsmiProvider {
     if (arrStyle.length === 1) {
       if (typeof this._predefined[arrStyle[0]] === "string") {
         return this._predefined[arrStyle[0]].replace("--osmi-opacity", 1)
-      } else {
-        return instanceStyle.getOutputStyle()
       }
-    } else {
-      return instanceStyle.getOutputStyle()
     }
+
+    if (arrStyle.length === 2) {
+      const hasOpacity = arrStyle[1].includes("--opacity")
+      const getColorOpacity = arrStyle[1].replace("--opacity-", "")
+
+      if (typeof this._predefined[arrStyle[0]] === "string" && hasOpacity) {
+        return this._predefined[arrStyle[0]].replace("--osmi-opacity", (Number(getColorOpacity) / 100))
+      }
+    }
+    
+    return instanceStyle.getOutputStyle()
   }
 }

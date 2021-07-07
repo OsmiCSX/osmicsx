@@ -13,8 +13,13 @@ import opacityProcessor from "../processor/opacityProcessor"
 // Import Processor Type
 import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.type"
 
+// Appearance Hook
+import { onAction } from "mobx-state-tree"
+import { appearanceHook } from "./appearance"
+
 export default class Instance {
   _predefined: object | any
+  _theme?: string
   _obj: object
   _bgOpacity: number
   _borderOpacity: number
@@ -23,8 +28,9 @@ export default class Instance {
   _borderDark?: BorderDark
   _textDark?: TextDark
 
-  constructor(customStyle?: object) {
+  constructor(customStyle?: object, theme?: string) {
     this._predefined = customStyle ? customStyle : map
+    this._theme = theme ?? appearanceHook.theme
     this._obj = {}
     this._bgOpacity = 100
     this._borderOpacity = 100
@@ -139,7 +145,7 @@ export default class Instance {
    * @returns {*|{}}
    */
   getOutputStyle() {
-    this._obj = darkThemeProcessor(this._obj, this._bgDark, this._borderDark, this._textDark)
+    this._obj = darkThemeProcessor(this._obj, this._theme, this._bgDark, this._borderDark, this._textDark)
 
     return opacityProcessor(this._obj, this._bgOpacity, this._borderOpacity, this._textOpacity)
   }
