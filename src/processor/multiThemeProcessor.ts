@@ -2,7 +2,7 @@
 import hexToRGBA from "../lib/hexToRGBA"
 
 // import type
-import { CustomTheme, CustomBorder, CustomFonts } from "./processor.type"
+import { CustomTheme, CustomBorder, CustomFonts, Shadows } from "./processor.type"
 
 // custom colors processor
 const customColors = (data: object): object => {
