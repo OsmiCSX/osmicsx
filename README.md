@@ -12,7 +12,7 @@
 ------
 
 ## Documentation
-For full documentation, please check https://osmicsx.github.io/docs/
+For full documentation, please check https://osmicsx.dev
 
 ## Based on TailwindCSS
 OsmiCSX adopts the TailwindCSS concept. We want to implement the same coding style in React Native, styling the component just by calling the style name. But, because React Native does not use CSS browser, tailwind is not directly compatible with React Native. That's the problem OsmiCSX is trying to solve.
