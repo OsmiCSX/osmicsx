@@ -131,7 +131,7 @@ const customFonts = (object: CustomFonts): object => {
     Object.entries(object?.size).map(([key, value]) => {
       fontStyles = {
         ...fontStyles,
-        [`font-${key}`]: { fontSize: value }
+        [`text-${key}`]: { fontSize: value }
       }
     })
   }
@@ -146,7 +146,7 @@ const customLineHeights = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     lineHeights = {
       ...lineHeights,
-      [key]: [value]
+      [`leading-${key}`]: [value]
     }
   })
 
@@ -160,7 +160,7 @@ const customLetterSpacings = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     letterSpacing = {
       ...letterSpacing,
-      [key]: [value]
+      [`tracking-${key}`]: [value]
     }
   })
 
@@ -174,7 +174,7 @@ const customShadows = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     shadow = {
       ...shadow,
-      [key]: [value]
+      [`shadow-${key}`]: [value]
     }
   })
 
