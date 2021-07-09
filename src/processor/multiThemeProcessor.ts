@@ -80,7 +80,7 @@ const customBorders = (data: CustomBorder): object => {
   let borderStyles = {}
 
   if (data?.width) {
-    Object.entries(data).map(([key, value]) => {
+    Object.entries(data.width).map(([key, value]) => {
       borderStyles = {
         ...borderStyles,
         [`border-${key}`]: { borderWidth: value },
@@ -93,7 +93,7 @@ const customBorders = (data: CustomBorder): object => {
   }
 
   if (data?.radius) {
-    Object.entries(data).map(([key, value]) => {
+    Object.entries(data.radius).map(([key, value]) => {
       borderStyles = {
         ...borderStyles,
         [`rounded-${key}`]: { borderRadius: value },
