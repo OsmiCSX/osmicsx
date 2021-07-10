@@ -146,7 +146,7 @@ const customLineHeights = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     lineHeights = {
       ...lineHeights,
-      [`leading-${key}`]: [value]
+      [`leading-${key}`]: { lineHeight: value }
     }
   })
 
@@ -160,7 +160,7 @@ const customLetterSpacings = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     letterSpacing = {
       ...letterSpacing,
-      [`tracking-${key}`]: [value]
+      [`tracking-${key}`]: { letterSpacing: value }
     }
   })
 
@@ -174,7 +174,7 @@ const customShadows = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     shadow = {
       ...shadow,
-      [`shadow-${key}`]: [value]
+      [`shadow-${key}`]: value
     }
   })
 
@@ -233,7 +233,7 @@ export default (customTheme: CustomTheme): object => {
     }
   }
 
-  // mapping letter spacing
+  // mapping shadow
   if (customTheme?.shadow) {
     finalObject = {
       ...finalObject,
