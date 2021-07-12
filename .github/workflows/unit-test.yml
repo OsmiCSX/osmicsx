@@ -15,7 +15,7 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build --if-present
+        run: yarn build
 
       - name: Start Testing
         run: yarn test
