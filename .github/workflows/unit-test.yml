@@ -1,6 +1,8 @@
 name: Unit Testting
 
 on:
+  pull_request:
+    branches: [ development ]
   push:
     branches: [ patch-**, development ]
 
