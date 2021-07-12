@@ -1,25 +1,21 @@
-name: Unit Test
+name: Unit Testting
 
 on:
   push:
-    branches: [ patch-** ]
-
+    branches: [ patch-**, development ]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
+    container: reactnativecommunity/react-native-android
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build --if-present
-      - run: npm test
+
+      - name: Install Modules
+        run: yarn install
+
+      - name: Build
+        run: yarn build --if-present
+
+      - name: Start Testing
+        run: yarn test
