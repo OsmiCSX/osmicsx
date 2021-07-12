@@ -1,11 +1,12 @@
-import shadow from "../../src/shadow";
+import apply from "../../dist/core/apply";
 
 test("shadow-none namespace", () => {
-  expect(shadow["shadow-none"]).toEqual({ elevation: 0, shadowOpacity: 0 })
+  expect(apply("shadow-none")).toEqual({ elevation: 0, shadowOpacity: 0 })
 })
 
+
 test("shadow-xs namespace", () => {
-  expect(shadow["shadow-xs"]).toEqual({
+  expect(apply("shadow-xs")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -14,11 +15,11 @@ test("shadow-xs namespace", () => {
     shadowOpacity: 0.18,
     shadowRadius: 1.00,
     elevation: 1,
-  })
+  });
 })
 
 test("shadow-sm namespace", () => {
-  expect(shadow["shadow-sm"]).toEqual({
+  expect(apply("shadow-sm")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -27,11 +28,11 @@ test("shadow-sm namespace", () => {
     shadowOpacity: 0.20,
     shadowRadius: 1.41,
     elevation: 2,
-  })
+  });
 })
 
 test("shadow namespace", () => {
-  expect(shadow["shadow"]).toEqual({
+  expect(apply("shadow")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -40,11 +41,11 @@ test("shadow namespace", () => {
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-  })
+  });
 })
 
 test("shadow-md namespace", () => {
-  expect(shadow["shadow-md"]).toEqual({
+  expect(apply("shadow-md")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -57,7 +58,7 @@ test("shadow-md namespace", () => {
 })
 
 test("shadow-lg namespace", () => {
-  expect(shadow["shadow-lg"]).toEqual({
+  expect(apply("shadow-lg")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -70,7 +71,7 @@ test("shadow-lg namespace", () => {
 })
 
 test("shadow-xl namespace", () => {
-  expect(shadow["shadow-xl"]).toEqual({
+  expect(apply("shadow-xl")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -83,7 +84,7 @@ test("shadow-xl namespace", () => {
 })
 
 test("shadow-2xl namespace", () => {
-  expect(shadow["shadow-2xl"]).toEqual({
+  expect(apply("shadow-2xl")).toEqual({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -1,17 +1,17 @@
-import flexDirection from "../../src/flex-direction";
+import apply from '../../dist/core/apply';
 
 test('row namespace', () => {
-  expect(flexDirection["row"]).toEqual({ flexDirection: "row" })
+  expect(apply("row")).toEqual({ flexDirection: "row" })
 })
 
 test('col namespace', () => {
-  expect(flexDirection["col"]).toEqual({ flexDirection: "column" })
+  expect(apply("col")).toEqual({ flexDirection: "column" })
 })
 
 test('row-reverse namespace', () => {
-  expect(flexDirection["row-reverse"]).toEqual({ flexDirection: "row-reverse" })
+  expect(apply("row-reverse")).toEqual({ flexDirection: "row-reverse" })
 })
 
 test('col-reverse namespace', () => {
-  expect(flexDirection["col-reverse"]).toEqual({ flexDirection: "column-reverse" })
+  expect(apply("col-reverse")).toEqual({ flexDirection: "column-reverse" })
 })

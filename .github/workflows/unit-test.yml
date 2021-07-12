@@ -1,0 +1,23 @@
+name: Unit Testting
+
+on:
+  pull_request:
+    branches: [ development ]
+  push:
+    branches: [ patch-**, development ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: reactnativecommunity/react-native-android
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Modules
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Start Testing
+        run: yarn test

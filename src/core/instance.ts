@@ -71,7 +71,7 @@ export default class Instance {
    * @param data
    */
   fixedWidthSize(data: string) {
-    if (data.includes("w-")) {
+    if(/(\bw\b\-[0-9]+)/.test(data)) {
       this.updateObject({
         width: Number(data.replace("w-", ""))
       })
@@ -83,7 +83,7 @@ export default class Instance {
    * @param data
    */
   fixedHeightSize(data: string) {
-    if (data.includes("h-")) {
+    if (/(\bh\b\-[0-9]+)/.test(data)) {
       this.updateObject({
         height: Number(data.replace("h-", ""))
       })

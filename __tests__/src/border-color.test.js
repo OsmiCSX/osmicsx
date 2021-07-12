@@ -1,4 +1,4 @@
-import apply from "../../lib/apply"
+import apply from "../../dist/core/apply"
 
 test("border-black with default opacity", () => {
   expect(apply("border-black")).toEqual({ borderColor: "rgba(0, 0, 0, 1)"})

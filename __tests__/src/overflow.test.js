@@ -1,9 +1,9 @@
-import overflow from "../../src/overflow";
+import apply from "../../dist/core/apply";
 
-test('overflow-visible namespace', () => {
-  expect(overflow["overflow-visible"]).toEqual({ overflow: "visible" })
-})
+test("overflow-visible namespace", () => {
+  expect(apply("overflow-visible")).toEqual({ overflow: "visible" });
+});
 
-test('overflow-hidden namespace', () => {
-  expect(overflow["overflow-hidden"]).toEqual({ overflow: "hidden" })
-})
+test("overflow-hidden namespace", () => {
+  expect(apply("overflow-hidden")).toEqual({ overflow: "hidden" });
+});

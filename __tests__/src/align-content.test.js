@@ -1,25 +1,26 @@
-import alignContent from "../../src/align-content";
+import apply from "../../dist/core/apply.js";
+
 
 test('content-start namespace', () => {
-  expect(alignContent['content-start']).toEqual({ alignContent: "flex-start" })
+  expect(apply('content-start')).toEqual({ alignContent: "flex-start" })
 })
 
 test('content-center namespace', () => {
-  expect(alignContent['content-center']).toEqual({ alignContent: "center" })
+  expect(apply('content-center')).toEqual({ alignContent: "center" })
 })
 
 test('content-end namespace', () => {
-  expect(alignContent['content-end']).toEqual({ alignContent: "flex-end" })
+  expect(apply('content-end')).toEqual({ alignContent: "flex-end" })
 })
 
 test('content-stretch namespace', () => {
-  expect(alignContent['content-stretch']).toEqual({ alignContent: "stretch" })
+  expect(apply('content-stretch')).toEqual({ alignContent: "stretch" })
 })
 
 test('content-between namespace', () => {
-  expect(alignContent['content-between']).toEqual({ alignContent: "space-between" })
+  expect(apply('content-between')).toEqual({ alignContent: "space-between" })
 })
 
 test('content-around namespace', () => {
-  expect(alignContent['content-around']).toEqual({ alignContent: "space-around" })
+  expect(apply('content-around')).toEqual({ alignContent: "space-around" })
 })
