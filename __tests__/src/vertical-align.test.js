@@ -1,18 +1,17 @@
-import verticalAlign from "../../src/vertical-align";
+import apply from "../../dist/core/apply";
 
 test("align-auto namespace", () => {
-  expect(verticalAlign["align-auto"]).toEqual({ textAlignVertical: "auto" })
-})
+  expect(apply("align-auto")).toEqual({ textAlignVertical: "auto" });
+});
 
 test("align-top namespace", () => {
-  expect(verticalAlign["align-top"]).toEqual({ textAlignVertical: "top" })
-})
+  expect(apply("align-top")).toEqual({ textAlignVertical: "top" });
+});
 
 test("align-bottom namespace", () => {
-  expect(verticalAlign["align-bottom"]).toEqual({ textAlignVertical: "bottom" })
-})
+  expect(apply("align-bottom")).toEqual({ textAlignVertical: "bottom" });
+});
 
 test("align-center namespace", () => {
-  expect(verticalAlign["align-center"]).toEqual({ textAlignVertical: "center" })
-})
-
+  expect(apply("align-center")).toEqual({ textAlignVertical: "center" });
+});

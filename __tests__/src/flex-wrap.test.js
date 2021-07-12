@@ -1,9 +1,9 @@
-import flexWrap from "../../src/flex-wrap";
+import apply from "../../dist/core/apply";
 
 test('wrap namespace', () => {
-  expect(flexWrap["wrap"]).toEqual({ flexWrap: "wrap" })
+  expect(apply("wrap")).toEqual({ flexWrap: "wrap" })
 })
 
 test('no-wrap namespace', () => {
-  expect(flexWrap["no-wrap"]).toEqual({ flexWrap: "nowrap" })
+  expect(apply("no-wrap")).toEqual({ flexWrap: "nowrap" })
 })

@@ -80,7 +80,7 @@ const customBorders = (data: CustomBorder): object => {
   let borderStyles = {}
 
   if (data?.width) {
-    Object.entries(data).map(([key, value]) => {
+    Object.entries(data.width).map(([key, value]) => {
       borderStyles = {
         ...borderStyles,
         [`border-${key}`]: { borderWidth: value },
@@ -93,7 +93,7 @@ const customBorders = (data: CustomBorder): object => {
   }
 
   if (data?.radius) {
-    Object.entries(data).map(([key, value]) => {
+    Object.entries(data.radius).map(([key, value]) => {
       borderStyles = {
         ...borderStyles,
         [`rounded-${key}`]: { borderRadius: value },
@@ -131,7 +131,7 @@ const customFonts = (object: CustomFonts): object => {
     Object.entries(object?.size).map(([key, value]) => {
       fontStyles = {
         ...fontStyles,
-        [`font-${key}`]: { fontSize: value }
+        [`text-${key}`]: { fontSize: value }
       }
     })
   }
@@ -146,7 +146,7 @@ const customLineHeights = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     lineHeights = {
       ...lineHeights,
-      [key]: [value]
+      [`leading-${key}`]: { lineHeight: value }
     }
   })
 
@@ -160,7 +160,7 @@ const customLetterSpacings = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     letterSpacing = {
       ...letterSpacing,
-      [key]: [value]
+      [`tracking-${key}`]: { letterSpacing: value }
     }
   })
 
@@ -174,7 +174,7 @@ const customShadows = (data: object): object => {
   Object.entries(data).map(([key, value]) => {
     shadow = {
       ...shadow,
-      [key]: [value]
+      [`shadow-${key}`]: value
     }
   })
 
@@ -233,7 +233,7 @@ export default (customTheme: CustomTheme): object => {
     }
   }
 
-  // mapping letter spacing
+  // mapping shadow
   if (customTheme?.shadow) {
     finalObject = {
       ...finalObject,
