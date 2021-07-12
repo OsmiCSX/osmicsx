@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Unit Test
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, lts]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
