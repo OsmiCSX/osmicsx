@@ -9,7 +9,8 @@
   "bugs": "https://github.com/OsmiCSX/osmicsx/issues",
   "contributors": [
     "Rully Ardiansyah <de.voresyah@gmail.com>",
-    "Ryan Aunur Rassyid <ryandevstudio@gmail.com>"
+    "Ryan Aunur Rassyid <ryandevstudio@gmail.com>",
+    "Ambrizal Suryadinata <sabuncolek@ambrizal.net>"
   ],
   "keywords": [
     "style",
@@ -30,6 +31,7 @@
     "@types/react-native": "^0.64.10",
     "jest": "^25.4.0",
     "prettier": "^2.2.1",
+    "react-native": "^0.64.2",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.1.3"
@@ -42,7 +44,8 @@
           "targets": {
             "node": "8.9.0"
           }
-        }
+        },
+        "@babel/preset-typescript"
       ]
     ]
   },

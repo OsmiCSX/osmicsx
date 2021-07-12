@@ -1,17 +1,17 @@
-import textTransform from "../../src/text-transform";
+import apply from "../../dist/core/apply";
 
 test("uppercase namespace", () => {
-  expect(textTransform["uppercase"]).toEqual({ textTransform: "uppercase" })
-})
+  expect(apply("uppercase")).toEqual({ textTransform: "uppercase" });
+});
 
 test("lowercase namespace", () => {
-  expect(textTransform["lowercase"]).toEqual({ textTransform: "lowercase" })
-})
+  expect(apply("lowercase")).toEqual({ textTransform: "lowercase" });
+});
 
 test("capitalize namespace", () => {
-  expect(textTransform["capitalize"]).toEqual({ textTransform: "capitalize" })
-})
+  expect(apply("capitalize")).toEqual({ textTransform: "capitalize" });
+});
 
 test("normal-case namespace", () => {
-  expect(textTransform["normal-case"]).toEqual({ textTransform: "normal-case" })
-})
+  expect(apply("normal-case")).toEqual({ textTransform: "normal-case" });
+});

@@ -1,4 +1,4 @@
-import apply from "../../lib/apply"
+import apply from "../../dist/core/apply"
 
 test('bg-black with default opacity', () => {
   expect(apply("bg-black")).toEqual({ backgroundColor: "rgba(0, 0, 0, 1)"})
