@@ -51,6 +51,12 @@ export default class OsmiProvider {
           // auto generate fixed width size
           instanceStyle.fixedHeightSize(syntax)
 
+          // auto generate percentage width
+          instanceStyle.percentWidth(syntax)
+
+          // auto generate percentage height
+          instanceStyle.percentHeight(syntax)
+
           // Check if there's coloring opacity
           instanceStyle.colorOpacity(syntax)
 
@@ -93,6 +99,12 @@ export default class OsmiProvider {
 
       // auto generate fixed width size
       instanceStyle.fixedHeightSize(syntax)
+
+      // auto generate percentage width
+      instanceStyle.percentWidth(syntax)
+
+      // auto generate percentage height
+      instanceStyle.percentHeight(syntax)
 
       // Check if there's coloring opacity
       instanceStyle.colorOpacity(syntax)
