@@ -91,6 +91,30 @@ export default class Instance {
   }
 
   /**
+   * Auto generate width in $ (string)
+   * @param data
+   */
+  percentWidth(data: string) {
+    if (/(\bw\b\%[0-9]+)/.test(data)) {
+      this.updateObject({
+        width: data.replace("w%", "") + "%"
+      })
+    }
+  }
+
+  /**
+   * Auto generate height in $ (string)
+   * @param data
+   */
+   percentHeight(data: string) {
+    if (/(\bh\b\%[0-9]+)/.test(data)) {
+      this.updateObject({
+        height: data.replace("h%", "") + "%"
+      })
+    }
+  }
+
+  /**
    * Checking if there's a color opacity
    * @param syntax
    */
