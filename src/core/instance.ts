@@ -72,9 +72,16 @@ export default class Instance {
    */
   fixedWidthSize(data: string) {
     if(/(\bw\b\-[0-9]+)/.test(data)) {
-      this.updateObject({
+      // Check wether it's max width, min width or width
+      const _nextObject = data.includes("max-w-") ? {
+        maxWidth: Number(data.replace("max-w-", ""))
+      } : data.includes("min-w-") ? {
+        minWidth: Number(data.replace("min-w-", ""))
+      } : {
         width: Number(data.replace("w-", ""))
-      })
+      }
+
+      this.updateObject(_nextObject)
     }
   }
 
@@ -84,9 +91,16 @@ export default class Instance {
    */
   fixedHeightSize(data: string) {
     if (/(\bh\b\-[0-9]+)/.test(data)) {
-      this.updateObject({
+      // Check wether it's max height, min height or height
+      const _nextObject = data.includes("max-h-") ? {
+        maxHeight: Number(data.replace("max-h-", ""))
+      } : data.includes("min-h-") ? {
+        minHeight: Number(data.replace("min-h-", ""))
+      } : {
         height: Number(data.replace("h-", ""))
-      })
+      }
+
+      this.updateObject(_nextObject)
     }
   }
 
