@@ -14,7 +14,6 @@ import opacityProcessor from "../processor/opacityProcessor"
 import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.type"
 
 // Appearance Hook
-import { onAction } from "mobx-state-tree"
 import { appearanceHook } from "./appearance"
 
 type WidthSize = {
@@ -146,25 +145,22 @@ export default class Instance {
    */
    transformTranslate(syntax: string) {
     if (/(-translate|translate)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
-      let _updatedObject: object = {}
       const extractTranslate: string[] = syntax.split("-")
       const isNegative: boolean = syntax.includes("-translate")
       const lastIndex: number = extractTranslate.length - 1
       const value: number = isNegative ? Number(-extractTranslate[lastIndex]) : Number(extractTranslate[lastIndex])
 
       if (extractTranslate.includes("x")) {
-        _updatedObject = {
+        this.updateObject({
           transform: [{ translateX: value }]
-        }
+        })
       }
 
       if (extractTranslate.includes("y")) {
-        _updatedObject = {
+        this.updateObject({
           transform: [{ translateY: value }]
-        }
+        })
       }
-
-      this.updateObject(_updatedObject)
     }
   }
 
