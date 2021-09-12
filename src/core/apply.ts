@@ -20,6 +20,24 @@ const apply = (args: string): object => {
     // auto generate fixed width size
     instanceStyle.fixedHeightSize(syntax)
 
+    // auto generate percentage width
+    instanceStyle.percentWidth(syntax)
+
+    // auto generate percentage height
+    instanceStyle.percentHeight(syntax)
+
+    // auto generate transform position
+    instanceStyle.transformTranslate(syntax)
+
+    // auto generate transform scale
+    instanceStyle.transformScale(syntax)
+    
+    // auto generate transform skew
+    instanceStyle.transformSkew(syntax)
+
+    // auto generate transform rotate
+    instanceStyle.transformRotate(syntax)
+
     // Check if there's coloring opacity
     instanceStyle.colorOpacity(syntax)
 

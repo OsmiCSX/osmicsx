@@ -14,8 +14,19 @@ import opacityProcessor from "../processor/opacityProcessor"
 import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.type"
 
 // Appearance Hook
-import { onAction } from "mobx-state-tree"
 import { appearanceHook } from "./appearance"
+
+type WidthSize = {
+  maxWidth?: number,
+  minWidth?: number,
+  width?: number
+}
+
+type HeightSize = {
+  maxHeight?: number,
+  minHeight?: number,
+  height?: number
+}
 
 export default class Instance {
   _predefined: object | any
@@ -72,9 +83,16 @@ export default class Instance {
    */
   fixedWidthSize(data: string) {
     if(/(\bw\b\-[0-9]+)/.test(data)) {
-      this.updateObject({
+      // Check wether it's max width, min width or width
+      const _nextObject: WidthSize = data.includes("max-w-") ? {
+        maxWidth: Number(data.replace("max-w-", ""))
+      } : data.includes("min-w-") ? {
+        minWidth: Number(data.replace("min-w-", ""))
+      } : {
         width: Number(data.replace("w-", ""))
-      })
+      }
+
+      this.updateObject(_nextObject)
     }
   }
 
@@ -84,9 +102,158 @@ export default class Instance {
    */
   fixedHeightSize(data: string) {
     if (/(\bh\b\-[0-9]+)/.test(data)) {
-      this.updateObject({
+      // Check wether it's max height, min height or height
+      const _nextObject: HeightSize = data.includes("max-h-") ? {
+        maxHeight: Number(data.replace("max-h-", ""))
+      } : data.includes("min-h-") ? {
+        minHeight: Number(data.replace("min-h-", ""))
+      } : {
         height: Number(data.replace("h-", ""))
+      }
+
+      this.updateObject(_nextObject)
+    }
+  }
+
+  /**
+   * Auto generate width in $ (string)
+   * @param data
+   */
+  percentWidth(data: string) {
+    if (/(\bw\b\%[0-9]+)/.test(data)) {
+      this.updateObject({
+        width: data.replace("w%", "") + "%"
       })
+    }
+  }
+
+  /**
+   * Auto generate height in $ (string)
+   * @param data
+   */
+   percentHeight(data: string) {
+    if (/(\bh\b\%[0-9]+)/.test(data)) {
+      this.updateObject({
+        height: data.replace("h%", "") + "%"
+      })
+    }
+  }
+
+  /**
+   * Auto generate translate X or Y position
+   * @param syntax styles syntax
+   */
+  transformTranslate(syntax: string) {
+    if (/(-translate|translate)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractTranslate: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-translate")
+      const lastIndex: number = extractTranslate.length - 1
+      const value: number = isNegative ? Number(-extractTranslate[lastIndex]) : Number(extractTranslate[lastIndex])
+
+      if (extractTranslate.includes("x")) {
+        this.updateObject({
+          transform: [{ translateX: value }]
+        })
+      }
+
+      if (extractTranslate.includes("y")) {
+        this.updateObject({
+          transform: [{ translateY: value }]
+        })
+      }
+    }
+  }
+
+  /**
+   * Auto generate scale X,Y or Both position
+   * @param syntax styles syntax
+   */
+  transformScale(syntax: string) {
+    if (/(-scale|scale)-(x|y)-([0-9]{1,3}$)/.test(syntax) || /(-scale|scale)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractScale: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-scale")
+      const lastIndex: number = extractScale.length - 1
+      const value: number = isNegative ? Number(-extractScale[lastIndex]) : Number(extractScale[lastIndex])
+
+      if (extractScale.includes("x")) {
+        this.updateObject({
+          transform: [{ scaleX: value }]
+        })
+      }
+
+      if (extractScale.includes("y")) {
+        this.updateObject({
+          transform: [{ scaleY: value }]
+        })
+      }
+
+      if (!extractScale.includes("x") && !extractScale.includes("y")) {
+        this.updateObject({
+          transform: [{ scale: value }]
+        })
+      }
+    }
+  }
+
+  /**
+   * Auto generate rotate X,Y or Both position
+   * @param syntax styles syntax
+   */
+  transformRotate(syntax: string) {
+    if (/(-rotate|rotate)-(x|y|z)-([0-9]{1,3}$)/.test(syntax) || /(-rotate|rotate)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractRotate: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-rotate")
+      const lastIndex: number = extractRotate.length - 1
+      const value: number = isNegative ? Number(-extractRotate[lastIndex]) : Number(extractRotate[lastIndex])
+
+      if (extractRotate.includes("x")) {
+        this.updateObject({
+          transform: [{ rotateX: `${value}deg` }]
+        })
+      }
+
+      if (extractRotate.includes("y")) {
+        this.updateObject({
+          transform: [{ rotateY: `${value}deg` }]
+        })
+      }
+
+      if (extractRotate.includes("z")) {
+        this.updateObject({
+          transform: [{ rotateZ: `${value}deg` }]
+        })
+      }
+
+      if (!extractRotate.includes("x") && !extractRotate.includes("y") && !extractRotate.includes("z")) {
+        this.updateObject({
+          transform: [{ rotate: `${value}deg` }]
+        })
+      }
+    }
+  }
+  
+  /**
+   * Auto generate translate X or Y position
+   * @param syntax styles syntax
+   */
+  transformSkew(syntax: string) {
+    if (/(-skew|skew)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractSkew: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-skew")
+      const lastIndex: number = extractSkew.length - 1
+      const value: number = isNegative ? Number(-extractSkew[lastIndex]) : Number(extractSkew[lastIndex])
+
+      if (extractSkew.includes("x")) {
+        this.updateObject({
+          transform: [{ skewX: `${value}deg` }]
+        })
+      }
+
+      if (extractSkew.includes("y")) {
+        this.updateObject({
+          transform: [{ skewY: `${value}deg` }]
+        })
+      }
     }
   }
 
