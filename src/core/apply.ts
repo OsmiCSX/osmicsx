@@ -29,6 +29,9 @@ const apply = (args: string): object => {
     // auto generate transform position
     instanceStyle.transformTranslate(syntax)
 
+    // auto generate transform scale
+    instanceStyle.transformScale(syntax)
+    
     // auto generate transform skew
     instanceStyle.transformSkew(syntax)
 

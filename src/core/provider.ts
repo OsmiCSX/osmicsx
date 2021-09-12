@@ -60,6 +60,9 @@ export default class OsmiProvider {
           // auto generate transform position
           instanceStyle.transformTranslate(syntax)
 
+          // auto generate transform scale
+          instanceStyle.transformScale(syntax)
+
           // Check if there's coloring opacity
           instanceStyle.colorOpacity(syntax)
 
