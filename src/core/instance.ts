@@ -194,6 +194,43 @@ export default class Instance {
       }
     }
   }
+
+  /**
+   * Auto generate rotate X,Y or Both position
+   * @param syntax styles syntax
+   */
+  transformRotate(syntax: string) {
+    if (/(-rotate|rotate)-(x|y|z)-([0-9]{1,3}$)/.test(syntax) || /(-rotate|rotate)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractRotate: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-rotate")
+      const lastIndex: number = extractRotate.length - 1
+      const value: number = isNegative ? Number(-extractRotate[lastIndex]) : Number(extractRotate[lastIndex])
+
+      if (extractRotate.includes("x")) {
+        this.updateObject({
+          transform: [{ rotateX: `${value}deg` }]
+        })
+      }
+
+      if (extractRotate.includes("y")) {
+        this.updateObject({
+          transform: [{ rotateY: `${value}deg` }]
+        })
+      }
+
+      if (extractRotate.includes("z")) {
+        this.updateObject({
+          transform: [{ rotateZ: `${value}deg` }]
+        })
+      }
+
+      if (!extractRotate.includes("x") && !extractRotate.includes("y") && !extractRotate.includes("z")) {
+        this.updateObject({
+          transform: [{ rotate: `${value}deg` }]
+        })
+      }
+    }
+  }
   
   /**
    * Auto generate translate X or Y position
