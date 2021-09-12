@@ -165,6 +165,37 @@ export default class Instance {
   }
 
   /**
+   * Auto generate scale X,Y or Both position
+   * @param syntax styles syntax
+   */
+  transformScale(syntax: string) {
+    if (/(-scale|scale)-(x|y)-([0-9]{1,3}$)/.test(syntax) || /(-scale|scale)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractScale: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-scale")
+      const lastIndex: number = extractScale.length - 1
+      const value: number = isNegative ? Number(-extractScale[lastIndex]) : Number(extractScale[lastIndex])
+
+      if (extractScale.includes("x")) {
+        this.updateObject({
+          transform: [{ scaleX: value }]
+        })
+      }
+
+      if (extractScale.includes("y")) {
+        this.updateObject({
+          transform: [{ scaleY: value }]
+        })
+      }
+
+      if (!extractScale.includes("x") && !extractScale.includes("y")) {
+        this.updateObject({
+          transform: [{ scale: value }]
+        })
+      }
+    }
+  }
+
+  /**
    * Checking if there's a color opacity
    * @param syntax
    */
