@@ -143,7 +143,7 @@ export default class Instance {
    * Auto generate translate X or Y position
    * @param syntax styles syntax
    */
-   transformTranslate(syntax: string) {
+  transformTranslate(syntax: string) {
     if (/(-translate|translate)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
       const extractTranslate: string[] = syntax.split("-")
       const isNegative: boolean = syntax.includes("-translate")
@@ -190,6 +190,31 @@ export default class Instance {
       if (!extractScale.includes("x") && !extractScale.includes("y")) {
         this.updateObject({
           transform: [{ scale: value }]
+        })
+      }
+    }
+  }
+  
+  /**
+   * Auto generate translate X or Y position
+   * @param syntax styles syntax
+   */
+  transformSkew(syntax: string) {
+    if (/(-skew|skew)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
+      const extractSkew: string[] = syntax.split("-")
+      const isNegative: boolean = syntax.includes("-skew")
+      const lastIndex: number = extractSkew.length - 1
+      const value: number = isNegative ? Number(-extractSkew[lastIndex]) : Number(extractSkew[lastIndex])
+
+      if (extractSkew.includes("x")) {
+        this.updateObject({
+          transform: [{ skewX: `${value}deg` }]
+        })
+      }
+
+      if (extractSkew.includes("y")) {
+        this.updateObject({
+          transform: [{ skewY: `${value}deg` }]
         })
       }
     }

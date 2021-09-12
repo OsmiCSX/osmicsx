@@ -112,6 +112,12 @@ export default class OsmiProvider {
       // auto generate percentage height
       instanceStyle.percentHeight(syntax)
 
+      // auto generate transform position
+      instanceStyle.transformTranslate(syntax)
+
+      // auto generate transform skew
+      instanceStyle.transformSkew(syntax)
+
       // Check if there's coloring opacity
       instanceStyle.colorOpacity(syntax)
 

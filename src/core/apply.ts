@@ -31,6 +31,9 @@ const apply = (args: string): object => {
 
     // auto generate transform scale
     instanceStyle.transformScale(syntax)
+    
+    // auto generate transform skew
+    instanceStyle.transformSkew(syntax)
 
     // Check if there's coloring opacity
     instanceStyle.colorOpacity(syntax)
