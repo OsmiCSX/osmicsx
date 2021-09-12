@@ -10,17 +10,46 @@ export interface TextDark {
   color: string
 }
 
-export interface CustomBorder {
-  width?: object,
-  radius?: object
+export type CustomColors = {
+  [key: string]: string
 }
 
-export interface CustomFonts {
-  family?: object,
-  size?: object
+export type CustomSpacing = {
+  [key: string]: number;
+  [key: number]: number
 }
 
-export interface Shadows {
+export type CustomLineHeight = {
+  [key: string]: number;
+  [key: number]: number;
+}
+
+export type CustomLetterSpacing = {
+  [key: string]: number;
+  [key: number]: number;
+}
+
+export type CustomBorder = {
+  width?: {
+    [key: string]: number;
+    [key: number]: number;
+  },
+  radius?: {
+    [key: string]: number;
+    [key: number]: number;
+  }
+}
+
+export type CustomFonts = {
+  family?: {
+    [key: string]: string
+  },
+  size?: {
+    [key: string]: number
+  }
+}
+
+export type Shadow = {
   shadowColor: string,
   shadowOffset: {
     width: number,
@@ -31,12 +60,17 @@ export interface Shadows {
   elevation: number
 }
 
-export interface CustomTheme {
-  colors?: object,
-  spacing?: object,
+export type CustomShadow = {
+  [key: string]: Shadow;
+  [key: number]: Shadow
+}
+
+export type CustomTheme = {
+  colors?: CustomColors,
+  spacing?: CustomSpacing,
   border?: CustomBorder,
   font?: CustomFonts,
-  lineHeight?: object,
-  letterSpacing?: object,
-  shadow?: Shadows
+  lineHeight?: CustomLineHeight,
+  letterSpacing?: CustomLetterSpacing,
+  shadow?: CustomShadow,
 }
