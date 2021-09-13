@@ -3,7 +3,7 @@ import hexToRGBA from "../lib/hexToRGBA"
 
 // import type
 import { 
-  CustomTheme, 
+  CustomThemeType, 
   CustomColors, 
   CustomSpacing, 
   CustomBorder, 
@@ -200,7 +200,7 @@ const customShadows = (data: CustomShadow): object => {
 }
 
 // Processor to generate Custom Theme into Pre-defined Styles
-export default (customTheme: CustomTheme): object => {
+export default (customTheme: CustomThemeType): object => {
   let finalObject: object = {}
 
   // mapping colors

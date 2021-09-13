@@ -10,43 +10,22 @@ export interface TextDark {
   color: string
 }
 
-export type CustomColors = {
-  [key: string]: string
-}
+export type CustomColors = Record<string, string>
 
-export type CustomSpacing = {
-  [key: string]: number;
-  [key: number]: number
-}
+export type CustomSpacing = Record<string|number, number>
 
-export type CustomLineHeight = {
-  [key: string]: number;
-  [key: number]: number;
-}
+export type CustomLineHeight = Record<string|number, number>
 
-export type CustomLetterSpacing = {
-  [key: string]: number;
-  [key: number]: number;
-}
+export type CustomLetterSpacing = Record<string|number, number>
 
 export type CustomBorder = {
-  width?: {
-    [key: string]: number;
-    [key: number]: number;
-  },
-  radius?: {
-    [key: string]: number;
-    [key: number]: number;
-  }
+  width?: Record<string|number, number>,
+  radius?: Record<string|number, number>
 }
 
 export type CustomFonts = {
-  family?: {
-    [key: string]: string
-  },
-  size?: {
-    [key: string]: number
-  }
+  family?: Record<string, string>,
+  size?: Record<string|number, number>
 }
 
 export type Shadow = {
@@ -60,12 +39,9 @@ export type Shadow = {
   elevation: number
 }
 
-export type CustomShadow = {
-  [key: string]: Shadow;
-  [key: number]: Shadow
-}
+export type CustomShadow = Record<string|number, Shadow>
 
-export type CustomTheme = {
+export type CustomThemeType = {
   colors?: CustomColors,
   spacing?: CustomSpacing,
   border?: CustomBorder,
