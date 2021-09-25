@@ -10,17 +10,25 @@ export interface TextDark {
   color: string
 }
 
-export interface CustomBorder {
-  width?: object,
-  radius?: object
+export type CustomColors = Record<string, string>
+
+export type CustomSpacing = Record<string|number, number>
+
+export type CustomLineHeight = Record<string|number, number>
+
+export type CustomLetterSpacing = Record<string|number, number>
+
+export type CustomBorder = {
+  width?: Record<string|number, number>,
+  radius?: Record<string|number, number>
 }
 
-export interface CustomFonts {
-  family?: object,
-  size?: object
+export type CustomFonts = {
+  family?: Record<string, string>,
+  size?: Record<string|number, number>
 }
 
-export interface Shadows {
+export type Shadow = {
   shadowColor: string,
   shadowOffset: {
     width: number,
@@ -31,12 +39,14 @@ export interface Shadows {
   elevation: number
 }
 
-export interface CustomTheme {
-  colors?: object,
-  spacing?: object,
+export type CustomShadow = Record<string|number, Shadow>
+
+export type CustomThemeType = {
+  colors?: CustomColors,
+  spacing?: CustomSpacing,
   border?: CustomBorder,
   font?: CustomFonts,
-  lineHeight?: object,
-  letterSpacing?: object,
-  shadow?: Shadows
+  lineHeight?: CustomLineHeight,
+  letterSpacing?: CustomLetterSpacing,
+  shadow?: CustomShadow,
 }

@@ -3,7 +3,7 @@ import map from "../predefined/map"
 
 import Instance from "./instance"
 import CustomProcessor from "../processor/multiThemeProcessor"
-import { CustomTheme } from "../processor/processor.type"
+import { CustomThemeType } from "../processor/processor.type"
 
 // Import Scale Utility
 import { scaleWidth, scaleHeight } from "../lib/responsive"
@@ -20,7 +20,7 @@ export default class OsmiProvider {
   width: (widthPercent: number) => number
   height: (heightPercent: number) => number
 
-  constructor(customStyle?: CustomTheme) {
+  constructor(customStyle?: CustomThemeType) {
     this._predefined = customStyle ? {
       ...map,
       ...CustomProcessor(customStyle)
@@ -62,6 +62,12 @@ export default class OsmiProvider {
 
           // auto generate transform scale
           instanceStyle.transformScale(syntax)
+
+          // auto generate transform skew
+          instanceStyle.transformSkew(syntax)
+
+          // auto generate transform rotate
+          instanceStyle.transformRotate(syntax)
 
           // Check if there's coloring opacity
           instanceStyle.colorOpacity(syntax)
