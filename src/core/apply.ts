@@ -14,17 +14,14 @@ const apply = (args: string): object => {
     // check if width & size using responsive method or not
     instanceStyle.responsiveSize(syntax)
 
+    // auto generate percentage size
+    instanceStyle.percentSize(syntax)
+
     // auto generate fixed width size
     instanceStyle.fixedWidthSize(syntax)
 
     // auto generate fixed width size
     instanceStyle.fixedHeightSize(syntax)
-
-    // auto generate percentage width
-    instanceStyle.percentWidth(syntax)
-
-    // auto generate percentage height
-    instanceStyle.percentHeight(syntax)
 
     // auto generate transform position
     instanceStyle.transformTranslate(syntax)

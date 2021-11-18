@@ -4,6 +4,9 @@ import map from "../predefined/map"
 // responsive module
 import { convertResponsive } from "../lib/responsive"
 
+// percentage
+import { convertPercentage } from "../lib/percentage"
+
 // import dark theme processor
 import darkThemeProcessor from "../processor/darkThemeProcessor"
 
@@ -67,8 +70,8 @@ export default class Instance {
   }
 
   /**
-   * Check if the width & height are
-   * responsive or not
+   * Check if the ["min-w", "w", "max-w", "min-h", "h", "max-h"]
+   * are responsive or not
    * @param data
    */
   responsiveSize(data: string) {
@@ -116,26 +119,12 @@ export default class Instance {
   }
 
   /**
-   * Auto generate width in $ (string)
+   * Check if the size style are using percentage or not.
    * @param data
    */
-  percentWidth(data: string) {
-    if (/(\bw\b\%[0-9]+)/.test(data)) {
-      this.updateObject({
-        width: data.replace("w%", "") + "%"
-      })
-    }
-  }
-
-  /**
-   * Auto generate height in $ (string)
-   * @param data
-   */
-   percentHeight(data: string) {
-    if (/(\bh\b\%[0-9]+)/.test(data)) {
-      this.updateObject({
-        height: data.replace("h%", "") + "%"
-      })
+   percentSize(data: string) {
+    if (data.includes("%")) {
+      this.updateObject(convertPercentage(data.split("%")))
     }
   }
 
