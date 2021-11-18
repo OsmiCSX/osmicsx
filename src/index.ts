@@ -16,11 +16,11 @@ import OsmiProvider from './core/provider'
 // Import apply() helper
 import apply from './core/apply'
 
-// Import appearanceHook
-import { appearanceHook } from './core/appearance'
-
 // Import CustomThemeType
 import { CustomThemeType } from './processor/processor.type'
+
+// Import appereanceHook
+import { appearanceHook } from './core/appearance'
 
 /**
  * Export helper method
@@ -31,5 +31,5 @@ export {
   scaleHeight,
   OsmiProvider,
   appearanceHook,
-  CustomThemeType
+  CustomThemeType,
 }

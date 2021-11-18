@@ -2,12 +2,19 @@ import { types } from 'mobx-state-tree'
 
 // Create Appearance Model
 const AppearanceModel = types.model('Appearance', {
-  theme: 'system'
+  theme: types.enumeration(['system', 'light', 'dark'])
 })
-.actions((appearance) => ({
-  switch(theme: string) {
-    appearance.theme = theme
+.views(self => ({
+  get activeTheme() {
+    return self.theme
+  }
+}))
+.actions(self => ({
+  switch(theme: typeof self.theme) {
+    self.theme = theme
   }
 }))
 
-export const appearanceHook = AppearanceModel.create()
+export const appearanceHook = AppearanceModel.create({
+  theme: 'system'
+})
