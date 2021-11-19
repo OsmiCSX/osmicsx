@@ -96,6 +96,9 @@ export default function providerApp(theme: CustomThemeType) {
 
           // Generate from pre-defined styles
           instanceStyle.predefinedStyles(syntax);
+
+          // Check if there's notch or not.
+          instanceStyle.notch(syntax);
         });
 
         objStyle[key] = instanceStyle.getOutputStyle();
@@ -173,6 +176,9 @@ export default function providerApp(theme: CustomThemeType) {
 
         // Generate from pre-defined styles
         instanceStyle.predefinedStyles(syntax);
+
+        // Check if there's notch or not.
+        instanceStyle.notch(syntax);
       });
 
       objStyle = instanceStyle.getOutputStyle();
