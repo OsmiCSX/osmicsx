@@ -39,7 +39,7 @@ const scaleHeight = (heightPercent: number): number => {
 /**
  * Detect osmi style and Convert it into Width / Heihgt / Font Size
  * @param {array} array from split string "/" with type and value
- * @return {object} object style width / height /font size
+ * @return {object} object style width / height / font size
  */
 const convertResponsive = ([type, value]: string[]): object | undefined => {
   switch(type) {
@@ -56,6 +56,26 @@ const convertResponsive = ([type, value]: string[]): object | undefined => {
     case "text":
       return {
         fontSize: scaleWidth(Number(value))
+      }
+
+    case "min-w":
+      return {
+        minWidth: scaleWidth(Number(value))
+      }
+
+    case "min-h":
+      return {
+        minHeight: scaleHeight(Number(value))
+      }
+
+    case "max-w":
+      return {
+        maxWidth: scaleWidth(Number(value))
+      }
+
+    case "max-h":
+      return {
+        maxHeight: scaleHeight(Number(value))
       }
 
     default:
