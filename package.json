@@ -1,6 +1,6 @@
 {
   "name": "osmicsx",
-  "version": "0.7.0-alpha.2",
+  "version": "0.7.0-alpha.3",
   "description": "An utility style framework for React Native.",
   "type": "module",
   "license": "MIT",
@@ -60,7 +60,7 @@
     "node": ">=8.9.0"
   },
   "dependencies": {
-    "mobx": "^6.3.2",
+    "mobx": "^6.3.7",
     "mobx-state-tree": "^5.0.2"
   }
 }

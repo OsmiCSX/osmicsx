@@ -16,9 +16,6 @@ import opacityProcessor from "../processor/opacityProcessor"
 // Import Processor Type
 import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.type"
 
-// Appearance Hook
-import { appearanceHook } from "./appearance"
-
 type WidthSize = {
   maxWidth?: number,
   minWidth?: number,
@@ -32,19 +29,17 @@ type HeightSize = {
 }
 
 export default class Instance {
-  _predefined: object | any
-  _theme?: string
-  _obj: object
-  _bgOpacity: number
-  _borderOpacity: number
-  _textOpacity: number
-  _bgDark?: BackgroundDark
-  _borderDark?: BorderDark
-  _textDark?: TextDark
+  private _predefined: object | any
+  private _obj: object
+  private _bgOpacity: number
+  private _borderOpacity: number
+  private _textOpacity: number
+  private _bgDark?: BackgroundDark
+  private _borderDark?: BorderDark
+  private _textDark?: TextDark
 
-  constructor(customStyle?: object, theme?: string) {
+  constructor(customStyle?: object) {
     this._predefined = customStyle ? customStyle : map
-    this._theme = theme ?? appearanceHook.theme
     this._obj = {}
     this._bgOpacity = 100
     this._borderOpacity = 100
@@ -301,7 +296,7 @@ export default class Instance {
    * @returns {*|{}}
    */
   getOutputStyle() {
-    this._obj = darkThemeProcessor(this._obj, this._theme, this._bgDark, this._borderDark, this._textDark)
+    this._obj = darkThemeProcessor(this._obj, this._bgDark, this._borderDark, this._textDark)
 
     return opacityProcessor(this._obj, this._bgOpacity, this._borderOpacity, this._textOpacity)
   }
