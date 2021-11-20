@@ -1,59 +1,66 @@
 // import pre-defined styles
-import map from "../predefined/map"
+import map from "../predefined/map";
 
 // responsive module
-import { convertResponsive } from "../lib/responsive"
+import { convertResponsive } from "../lib/responsive";
 
 // percentage
-import { convertPercentage } from "../lib/percentage"
+import { convertPercentage } from "../lib/percentage";
 
 // import dark theme processor
-import darkThemeProcessor from "../processor/darkThemeProcessor"
+import darkThemeProcessor from "../processor/darkThemeProcessor";
 
 // import opacity processing
-import opacityProcessor from "../processor/opacityProcessor"
+import opacityProcessor from "../processor/opacityProcessor";
 
 // Import Processor Type
-import { BackgroundDark, BorderDark, TextDark } from "../processor/processor.type"
+import {
+  BackgroundDark,
+  BorderDark,
+  TextDark,
+} from "../processor/processor.type";
+
+// Import iPhone X helper
+import { isIphoneX } from "../lib/iphoneXHelper";
 
 type WidthSize = {
-  maxWidth?: number,
-  minWidth?: number,
-  width?: number
-}
+  maxWidth?: number;
+  minWidth?: number;
+  width?: number;
+};
 
 type HeightSize = {
-  maxHeight?: number,
-  minHeight?: number,
-  height?: number
-}
+  maxHeight?: number;
+  minHeight?: number;
+  height?: number;
+};
 
 export default class Instance {
-  private _predefined: object | any
-  private _obj: object
-  private _bgOpacity: number
-  private _borderOpacity: number
-  private _textOpacity: number
-  private _bgDark?: BackgroundDark
-  private _borderDark?: BorderDark
-  private _textDark?: TextDark
+  private _predefined: object | any;
+  private _obj: object;
+  private _bgOpacity: number;
+  private _borderOpacity: number;
+  private _textOpacity: number;
+  private _bgDark?: BackgroundDark;
+  private _borderDark?: BorderDark;
+  private _textDark?: TextDark;
 
   constructor(customStyle?: object) {
-    this._predefined = customStyle ? customStyle : map
-    this._obj = {}
-    this._bgOpacity = 100
-    this._borderOpacity = 100
-    this._textOpacity = 100
-    this._bgDark = undefined
-    this._borderDark = undefined
-    this._textDark = undefined
+    this._predefined = customStyle ? customStyle : map;
+    this._obj = {};
+    this._bgOpacity = 100;
+    this._borderOpacity = 100;
+    this._textOpacity = 100;
+    this._bgDark = undefined;
+    this._borderDark = undefined;
+    this._textDark = undefined;
   }
 
   updateObject(data: object | undefined) {
     this._obj = {
       ...this._obj,
-      ...data
-    }
+      ...data,
+    };
   }
 
   /**
@@ -61,7 +68,7 @@ export default class Instance {
    * @param data
    */
   predefinedStyles(data: string) {
-    this.updateObject(this._predefined[data])
+    this.updateObject(this._predefined[data]);
   }
 
   /**
@@ -71,7 +78,7 @@ export default class Instance {
    */
   responsiveSize(data: string) {
     if (data.includes("/")) {
-      this.updateObject(convertResponsive(data.split("/")))
+      this.updateObject(convertResponsive(data.split("/")));
     }
   }
 
@@ -80,17 +87,21 @@ export default class Instance {
    * @param data
    */
   fixedWidthSize(data: string) {
-    if(/(\bw\b\-[0-9]+)/.test(data)) {
+    if (/(\bw\b\-[0-9]+)/.test(data)) {
       // Check wether it's max width, min width or width
-      const _nextObject: WidthSize = data.includes("max-w-") ? {
-        maxWidth: Number(data.replace("max-w-", ""))
-      } : data.includes("min-w-") ? {
-        minWidth: Number(data.replace("min-w-", ""))
-      } : {
-        width: Number(data.replace("w-", ""))
-      }
+      const _nextObject: WidthSize = data.includes("max-w-")
+        ? {
+            maxWidth: Number(data.replace("max-w-", "")),
+          }
+        : data.includes("min-w-")
+        ? {
+            minWidth: Number(data.replace("min-w-", "")),
+          }
+        : {
+            width: Number(data.replace("w-", "")),
+          };
 
-      this.updateObject(_nextObject)
+      this.updateObject(_nextObject);
     }
   }
 
@@ -101,15 +112,19 @@ export default class Instance {
   fixedHeightSize(data: string) {
     if (/(\bh\b\-[0-9]+)/.test(data)) {
       // Check wether it's max height, min height or height
-      const _nextObject: HeightSize = data.includes("max-h-") ? {
-        maxHeight: Number(data.replace("max-h-", ""))
-      } : data.includes("min-h-") ? {
-        minHeight: Number(data.replace("min-h-", ""))
-      } : {
-        height: Number(data.replace("h-", ""))
-      }
+      const _nextObject: HeightSize = data.includes("max-h-")
+        ? {
+            maxHeight: Number(data.replace("max-h-", "")),
+          }
+        : data.includes("min-h-")
+        ? {
+            minHeight: Number(data.replace("min-h-", "")),
+          }
+        : {
+            height: Number(data.replace("h-", "")),
+          };
 
-      this.updateObject(_nextObject)
+      this.updateObject(_nextObject);
     }
   }
 
@@ -117,9 +132,9 @@ export default class Instance {
    * Check if the size style are using percentage or not.
    * @param data
    */
-   percentSize(data: string) {
+  percentSize(data: string) {
     if (data.includes("%")) {
-      this.updateObject(convertPercentage(data.split("%")))
+      this.updateObject(convertPercentage(data.split("%")));
     }
   }
 
@@ -129,21 +144,23 @@ export default class Instance {
    */
   transformTranslate(syntax: string) {
     if (/(-translate|translate)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
-      const extractTranslate: string[] = syntax.split("-")
-      const isNegative: boolean = syntax.includes("-translate")
-      const lastIndex: number = extractTranslate.length - 1
-      const value: number = isNegative ? Number(-extractTranslate[lastIndex]) : Number(extractTranslate[lastIndex])
+      const extractTranslate: string[] = syntax.split("-");
+      const isNegative: boolean = syntax.includes("-translate");
+      const lastIndex: number = extractTranslate.length - 1;
+      const value: number = isNegative
+        ? Number(-extractTranslate[lastIndex])
+        : Number(extractTranslate[lastIndex]);
 
       if (extractTranslate.includes("x")) {
         this.updateObject({
-          transform: [{ translateX: value }]
-        })
+          transform: [{ translateX: value }],
+        });
       }
 
       if (extractTranslate.includes("y")) {
         this.updateObject({
-          transform: [{ translateY: value }]
-        })
+          transform: [{ translateY: value }],
+        });
       }
     }
   }
@@ -153,28 +170,33 @@ export default class Instance {
    * @param syntax styles syntax
    */
   transformScale(syntax: string) {
-    if (/(-scale|scale)-(x|y)-([0-9]{1,3}$)/.test(syntax) || /(-scale|scale)-([0-9]{1,3}$)/.test(syntax)) {
-      const extractScale: string[] = syntax.split("-")
-      const isNegative: boolean = syntax.includes("-scale")
-      const lastIndex: number = extractScale.length - 1
-      const value: number = isNegative ? Number(-extractScale[lastIndex]) : Number(extractScale[lastIndex])
+    if (
+      /(-scale|scale)-(x|y)-([0-9]{1,3}$)/.test(syntax) ||
+      /(-scale|scale)-([0-9]{1,3}$)/.test(syntax)
+    ) {
+      const extractScale: string[] = syntax.split("-");
+      const isNegative: boolean = syntax.includes("-scale");
+      const lastIndex: number = extractScale.length - 1;
+      const value: number = isNegative
+        ? Number(-extractScale[lastIndex])
+        : Number(extractScale[lastIndex]);
 
       if (extractScale.includes("x")) {
         this.updateObject({
-          transform: [{ scaleX: value }]
-        })
+          transform: [{ scaleX: value }],
+        });
       }
 
       if (extractScale.includes("y")) {
         this.updateObject({
-          transform: [{ scaleY: value }]
-        })
+          transform: [{ scaleY: value }],
+        });
       }
 
       if (!extractScale.includes("x") && !extractScale.includes("y")) {
         this.updateObject({
-          transform: [{ scale: value }]
-        })
+          transform: [{ scale: value }],
+        });
       }
     }
   }
@@ -184,59 +206,70 @@ export default class Instance {
    * @param syntax styles syntax
    */
   transformRotate(syntax: string) {
-    if (/(-rotate|rotate)-(x|y|z)-([0-9]{1,3}$)/.test(syntax) || /(-rotate|rotate)-([0-9]{1,3}$)/.test(syntax)) {
-      const extractRotate: string[] = syntax.split("-")
-      const isNegative: boolean = syntax.includes("-rotate")
-      const lastIndex: number = extractRotate.length - 1
-      const value: number = isNegative ? Number(-extractRotate[lastIndex]) : Number(extractRotate[lastIndex])
+    if (
+      /(-rotate|rotate)-(x|y|z)-([0-9]{1,3}$)/.test(syntax) ||
+      /(-rotate|rotate)-([0-9]{1,3}$)/.test(syntax)
+    ) {
+      const extractRotate: string[] = syntax.split("-");
+      const isNegative: boolean = syntax.includes("-rotate");
+      const lastIndex: number = extractRotate.length - 1;
+      const value: number = isNegative
+        ? Number(-extractRotate[lastIndex])
+        : Number(extractRotate[lastIndex]);
 
       if (extractRotate.includes("x")) {
         this.updateObject({
-          transform: [{ rotateX: `${value}deg` }]
-        })
+          transform: [{ rotateX: `${value}deg` }],
+        });
       }
 
       if (extractRotate.includes("y")) {
         this.updateObject({
-          transform: [{ rotateY: `${value}deg` }]
-        })
+          transform: [{ rotateY: `${value}deg` }],
+        });
       }
 
       if (extractRotate.includes("z")) {
         this.updateObject({
-          transform: [{ rotateZ: `${value}deg` }]
-        })
+          transform: [{ rotateZ: `${value}deg` }],
+        });
       }
 
-      if (!extractRotate.includes("x") && !extractRotate.includes("y") && !extractRotate.includes("z")) {
+      if (
+        !extractRotate.includes("x") &&
+        !extractRotate.includes("y") &&
+        !extractRotate.includes("z")
+      ) {
         this.updateObject({
-          transform: [{ rotate: `${value}deg` }]
-        })
+          transform: [{ rotate: `${value}deg` }],
+        });
       }
     }
   }
-  
+
   /**
    * Auto generate translate X or Y position
    * @param syntax styles syntax
    */
   transformSkew(syntax: string) {
     if (/(-skew|skew)-(x|y)-([0-9]{1,3}$)/.test(syntax)) {
-      const extractSkew: string[] = syntax.split("-")
-      const isNegative: boolean = syntax.includes("-skew")
-      const lastIndex: number = extractSkew.length - 1
-      const value: number = isNegative ? Number(-extractSkew[lastIndex]) : Number(extractSkew[lastIndex])
+      const extractSkew: string[] = syntax.split("-");
+      const isNegative: boolean = syntax.includes("-skew");
+      const lastIndex: number = extractSkew.length - 1;
+      const value: number = isNegative
+        ? Number(-extractSkew[lastIndex])
+        : Number(extractSkew[lastIndex]);
 
       if (extractSkew.includes("x")) {
         this.updateObject({
-          transform: [{ skewX: `${value}deg` }]
-        })
+          transform: [{ skewX: `${value}deg` }],
+        });
       }
 
       if (extractSkew.includes("y")) {
         this.updateObject({
-          transform: [{ skewY: `${value}deg` }]
-        })
+          transform: [{ skewY: `${value}deg` }],
+        });
       }
     }
   }
@@ -247,20 +280,20 @@ export default class Instance {
    */
   colorOpacity(syntax: string) {
     if (/(bg|text|border)-opacity-([0-9]{1,3}$)/.test(syntax)) {
-      const extractOpacity = syntax.split("-opacity-")
+      const extractOpacity = syntax.split("-opacity-");
 
-      switch(extractOpacity[0]) {
+      switch (extractOpacity[0]) {
         case "bg":
-          this._bgOpacity = Number(extractOpacity[1])
-          break
+          this._bgOpacity = Number(extractOpacity[1]);
+          break;
 
         case "border":
-          this._borderOpacity = Number(extractOpacity[1])
-          break
+          this._borderOpacity = Number(extractOpacity[1]);
+          break;
 
         case "text":
-          this._textOpacity = Number(extractOpacity[1])
-          break
+          this._textOpacity = Number(extractOpacity[1]);
+          break;
       }
     }
   }
@@ -271,24 +304,61 @@ export default class Instance {
    */
   darkTheme(syntax: string) {
     if (syntax.includes("dark")) {
-      const extractColor = syntax.replace("dark:", "")
+      const extractColor = syntax.replace("dark:", "");
 
       if (syntax.includes("dark:bg-")) {
-        this._bgDark = this._predefined[extractColor]
+        this._bgDark = this._predefined[extractColor];
       }
 
       if (syntax.includes("dark:border-")) {
-        this._borderDark = this._predefined[extractColor]
+        this._borderDark = this._predefined[extractColor];
       }
 
       if (syntax.includes("dark:text-")) {
-        this._textDark = this._predefined[extractColor]
+        this._textDark = this._predefined[extractColor];
       }
     }
   }
 
+  /**
+   * Checking if it's notch or not
+   * @param syntax
+   */
+  notch(syntax: string) {
+    if (syntax.includes("notch") && isIphoneX()) {
+      const extractStyle = syntax.replace("notch:", "");
+
+      // check if width & size using responsive method or not
+      this.responsiveSize(extractStyle);
+
+      // auto generate percentage size
+      this.percentSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedWidthSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedHeightSize(extractStyle);
+
+      // auto generate transform position
+      this.transformTranslate(extractStyle);
+
+      // auto generate transform scale
+      this.transformScale(extractStyle);
+
+      // auto generate transform skew
+      this.transformSkew(extractStyle);
+
+      // auto generate transform rotate
+      this.transformRotate(extractStyle);
+
+      // Generate from pre-defined styles
+      this.predefinedStyles(extractStyle);
+    }
+  }
+
   get predefined() {
-    return this._predefined
+    return this._predefined;
   }
 
   /**
@@ -296,8 +366,18 @@ export default class Instance {
    * @returns {*|{}}
    */
   getOutputStyle() {
-    this._obj = darkThemeProcessor(this._obj, this._bgDark, this._borderDark, this._textDark)
+    this._obj = darkThemeProcessor(
+      this._obj,
+      this._bgDark,
+      this._borderDark,
+      this._textDark
+    );
 
-    return opacityProcessor(this._obj, this._bgOpacity, this._borderOpacity, this._textOpacity)
+    return opacityProcessor(
+      this._obj,
+      this._bgOpacity,
+      this._borderOpacity,
+      this._textOpacity
+    );
   }
 }
