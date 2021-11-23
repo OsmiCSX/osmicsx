@@ -60,10 +60,11 @@ export default function providerApp(theme: CustomThemeType) {
     style: T | NamedInputStyles<T>
   ): NamedOuputStyles<T> {
     let objStyle: any = {};
-    const instanceStyle = initProvider.initInstance();
 
     const _runProcessing = () => {
       Object.entries(style).forEach(([key, value]) => {
+        const instanceStyle = initProvider.initInstance();
+
         value.split(" ").map((syntax: string) => {
           // check if width & size using responsive method or not
           instanceStyle.responsiveSize(syntax);
