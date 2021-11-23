@@ -56,9 +56,9 @@ export default function providerApp(theme: CustomThemeType) {
    * @param {object} style list of styles wrapped with object
    * @returns Stylesheet react-native
    */
-  function connect<T extends NamedInputStyles<T> | NamedInputStyles<any>>(
+  function connect<T extends NamedOuputStyles<T> | NamedOuputStyles<any>>(
     style: T | NamedInputStyles<T>
-  ): NamedOuputStyles<T> {
+  ): T {
     let objStyle: any = {};
 
     const _runProcessing = () => {
