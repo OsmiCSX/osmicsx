@@ -57,12 +57,12 @@ export default function providerApp(theme: CustomThemeType) {
    * @returns Stylesheet react-native
    */
   function connect<T extends NamedOuputStyles<T> | NamedOuputStyles<any>>(
-    style: T | NamedInputStyles<T>
+    style: NamedInputStyles<T>
   ): T {
     let objStyle: any = {};
 
     const _runProcessing = () => {
-      Object.entries(style).forEach(([key, value]) => {
+      Object.entries<string>(style).forEach(([key, value]) => {
         const instanceStyle = initProvider.initInstance();
 
         value.split(" ").map((syntax: string) => {
