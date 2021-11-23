@@ -1,4 +1,11 @@
-import { StyleSheet, ImageStyle, ViewStyle, TextStyle } from "react-native";
+import {
+  StyleSheet,
+  ImageStyle,
+  ViewStyle,
+  TextStyle,
+  StyleProp,
+} from "react-native";
+
 import map from "../predefined/map";
 
 import Instance from "./instance";
@@ -14,7 +21,7 @@ import { appearanceHook } from "./appearance";
 
 type NamedInputStyles<T> = { [P in keyof T]: string };
 type NamedOuputStyles<T> = {
-  [P in keyof T]: ViewStyle | TextStyle | ImageStyle;
+  [P in keyof T]: ViewStyle | TextStyle | ImageStyle | StyleProp<T>;
 };
 
 /**
