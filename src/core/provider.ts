@@ -71,8 +71,16 @@ export default function providerApp(theme: CustomThemeType) {
     const _runProcessing = () => {
       Object.entries<string>(style).forEach(([key, value]) => {
         const instanceStyle = initProvider.initInstance();
+        const splitSpacing = value.split(" ");
+        const sortingSyntax = [
+          ...splitSpacing.filter(
+            (item) => !item.includes("dark:") && !item.includes("notch:")
+          ),
+          ...splitSpacing.filter((item) => item.includes("notch:")),
+          ...splitSpacing.filter((item) => item.includes("dark:")),
+        ];
 
-        value.split(" ").map((syntax: string) => {
+        sortingSyntax.map((syntax: string) => {
           // check if width & size using responsive method or not
           instanceStyle.responsiveSize(syntax);
 
@@ -150,8 +158,16 @@ export default function providerApp(theme: CustomThemeType) {
       }
     }
 
+    const sortingSyntax = [
+      ...arrStyle.filter(
+        (item) => !item.includes("dark:") && !item.includes("notch:")
+      ),
+      ...arrStyle.filter((item) => item.includes("notch:")),
+      ...arrStyle.filter((item) => item.includes("dark:")),
+    ];
+
     const _runProcessing = () => {
-      arrStyle.map((syntax: string) => {
+      sortingSyntax.map((syntax: string) => {
         // check if width & size using responsive method or not
         instanceStyle.responsiveSize(syntax);
 

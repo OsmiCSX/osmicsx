@@ -1,3 +1,5 @@
+import { Appearance } from "react-native";
+
 // import pre-defined styles
 import map from "../predefined/map";
 
@@ -12,6 +14,9 @@ import darkThemeProcessor from "../processor/darkThemeProcessor";
 
 // import opacity processing
 import opacityProcessor from "../processor/opacityProcessor";
+
+// import appearance hook.
+import { appearanceHook } from "../core/appearance";
 
 // Import Processor Type
 import {
@@ -303,28 +308,15 @@ export default class Instance {
    * @param syntax
    */
   darkTheme(syntax: string) {
-    if (syntax.includes("dark")) {
-      const extractColor = syntax.replace("dark:", "");
+    if (
+      syntax.includes("dark") &&
+      (appearanceHook.activeTheme === "dark" ||
+        (appearanceHook.activeTheme === "system" &&
+          Appearance.getColorScheme() === "dark"))
+    ) {
+      const extractSyntax = syntax.replace("dark:", "");
 
-      if (syntax.includes("dark:bg-")) {
-        this._bgDark = this._predefined[extractColor];
-      }
-
-      if (syntax.includes("dark:border-")) {
-        this._borderDark = this._predefined[extractColor];
-      }
-
-      if (syntax.includes("dark:text-")) {
-        this._textDark = this._predefined[extractColor];
-      }
-
-      if (
-        extractColor !== "bg-" &&
-        extractColor !== "border-" &&
-        extractColor !== "text-"
-      ) {
-        this.predefinedStyles(extractColor);
-      }
+      this.predefinedStyles(extractSyntax);
     }
   }
 
@@ -374,13 +366,6 @@ export default class Instance {
    * @returns {*|{}}
    */
   getOutputStyle() {
-    this._obj = darkThemeProcessor(
-      this._obj,
-      this._bgDark,
-      this._borderDark,
-      this._textDark
-    );
-
     return opacityProcessor(
       this._obj,
       this._bgOpacity,
