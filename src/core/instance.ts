@@ -317,6 +317,14 @@ export default class Instance {
       if (syntax.includes("dark:text-")) {
         this._textDark = this._predefined[extractColor];
       }
+
+      if (
+        extractColor !== "bg-" &&
+        extractColor !== "border-" &&
+        extractColor !== "text-"
+      ) {
+        this.predefinedStyles(extractColor);
+      }
     }
   }
 
