@@ -1,5 +1,3 @@
-import { Appearance } from "react-native";
-
 // import pre-defined styles
 import map from "../predefined/map";
 
@@ -15,8 +13,7 @@ import darkThemeProcessor from "../processor/darkThemeProcessor";
 // import opacity processing
 import opacityProcessor from "../processor/opacityProcessor";
 
-// import appearance hook.
-import { appearanceHook } from "../core/appearance";
+import isDark from "../lib/darkThemeHelper";
 
 // Import Processor Type
 import {
@@ -308,12 +305,7 @@ export default class Instance {
    * @param syntax
    */
   darkTheme(syntax: string) {
-    if (
-      syntax.includes("dark") &&
-      (appearanceHook.activeTheme === "dark" ||
-        (appearanceHook.activeTheme === "system" &&
-          Appearance.getColorScheme() === "dark"))
-    ) {
+    if (isDark(syntax)) {
       const extractSyntax = syntax.replace("dark:", "");
 
       this.predefinedStyles(extractSyntax);
