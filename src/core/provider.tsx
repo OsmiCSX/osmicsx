@@ -12,56 +12,8 @@ import type { Mode } from "./context";
 
 interface OsmiProviderProps {
   theme?: CustomThemeType;
+  children: JSX.Element;
 }
-
-// interface OsmiProviderState {
-//   mode: keyof typeof Mode;
-//   theme: Record<string, object | string>;
-// }
-
-// export class OsmiProvider extends PureComponent<
-//   OsmiProviderProps,
-//   OsmiProviderState
-// > {
-//   // static switchMode = (newMode: keyof typeof Mode) => void
-
-//   constructor(props: OsmiProviderProps) {
-//     super(props);
-
-//     this.state = {
-//       mode: "system",
-//       theme:
-//         props?.theme !== undefined
-//           ? {
-//               ...osmiPredfined,
-//               ...customProcessor(props?.theme),
-//             }
-//           : osmiPredfined,
-//     };
-//   }
-
-//   switchMode = (newMode: keyof typeof Mode) => {
-//     this.setState({
-//       ...this.state,
-//       mode: newMode,
-//     });
-//   };
-
-//   render() {
-//     return (
-//       <OsmiContext.Provider
-//         value={{
-//           ...this.state,
-//           switchMode: this.switchMode,
-//           scaleWidth,
-//           scaleHeight,
-//         }}
-//       >
-//         {this.props.children}
-//       </OsmiContext.Provider>
-//     );
-//   }
-// }
 
 export const OsmiProvider: FC<OsmiProviderProps> = (props) => {
   const [mode, setMode] = useState<keyof typeof Mode>("system");
