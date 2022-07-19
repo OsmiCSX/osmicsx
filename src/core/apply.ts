@@ -40,7 +40,7 @@ export const applyHelper =
           ?.split("/");
         const darkColor = findDarkColor?.replace("dark:color-", "")?.split("/");
 
-        if (findDarkColor !== undefined) {
+        if (isDark(findDarkColor, themeContext?.mode)) {
           const getPredefinedColor = themeContext?.theme[darkColor[0]];
 
           if (typeof getPredefinedColor === "string") {
