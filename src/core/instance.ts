@@ -5,24 +5,16 @@ import { convertResponsive } from "../lib/responsive";
 import { convertPercentage } from "../lib/percentage";
 
 // import opacity processing
-import opacityProcessor from "../processor/opacityProcessor";
+import { opacityProcessor } from "../processor/opacity";
 
-import isDark from "../lib/darkThemeHelper";
+// import dark theme checker
+import { isDark } from "../lib/darkThemeHelper";
 
 // Import iPhone X helper
 import { isIphoneX } from "../lib/iphoneXHelper";
 
-type WidthSize = {
-  maxWidth?: number;
-  minWidth?: number;
-  width?: number;
-};
-
-type HeightSize = {
-  maxHeight?: number;
-  minHeight?: number;
-  height?: number;
-};
+// Import types
+import type { WidthSize, HeightSize } from "../types/osmi.types";
 
 export class Instance {
   private _predefined: object | any;

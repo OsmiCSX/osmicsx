@@ -1,23 +1,17 @@
-import React, { PureComponent, FC, useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { OsmiContext } from "./context";
-import { osmiPredfined } from "../predefined/map";
-import { customProcessor } from "../processor/multiThemeProcessor";
+import { osmiPredfined } from "../predefined";
+import { customProcessor } from "../processor";
 
 // Import Scale Utility
 import { scaleWidth, scaleHeight } from "../lib/responsive";
 
 // Types
-import type { CustomThemeType } from "../processor/processor.type";
-import type { Mode } from "./context";
-
-interface OsmiProviderProps {
-  theme?: CustomThemeType;
-  children: JSX.Element;
-}
+import type { OsmiProviderProps, ThemeMode } from "../types/osmi.types";
 
 export const OsmiProvider: FC<OsmiProviderProps> = (props) => {
-  const [mode, setMode] = useState<keyof typeof Mode>("system");
-  const switchMode = (newMode: keyof typeof Mode) => {
+  const [mode, setMode] = useState<keyof typeof ThemeMode>("system");
+  const switchMode = (newMode: keyof typeof ThemeMode) => {
     setMode(newMode);
   };
 

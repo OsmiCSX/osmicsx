@@ -1,4 +1,5 @@
 import { Instance } from "./instance";
+import { isDark } from "../lib/darkThemeHelper";
 import type { NamedStyles, OsmiContextInstance } from "../types/osmi.types";
 
 export const applyHelper =
@@ -26,6 +27,44 @@ export const applyHelper =
           );
           returnColorOnly = true;
         }
+      } else if (
+        splitSyntax.length === 2 &&
+        splitSyntax.some((syntax) => syntax.includes("dark:color-"))
+      ) {
+        const findDefaultColor =
+          splitSyntax.find((syntax) => !syntax.includes("dark:color-")) ?? "";
+        const findDarkColor =
+          splitSyntax.find((syntax) => syntax.includes("dark:color-")) ?? "";
+        const defaultColor = findDefaultColor
+          ?.replace("color-", "")
+          ?.split("/");
+        const darkColor = findDarkColor?.replace("dark:color-", "")?.split("/");
+
+        if (findDarkColor !== undefined) {
+          const getPredefinedColor = themeContext?.theme[darkColor[0]];
+
+          if (typeof getPredefinedColor === "string") {
+            color = getPredefinedColor.replace(
+              "--osmi-opacity",
+              darkColor[1] !== undefined
+                ? (Number(darkColor[1]) / 100).toFixed(2)
+                : "1"
+            );
+            returnColorOnly = true;
+          }
+        } else {
+          const getPredefinedColor = themeContext?.theme[defaultColor[0]];
+
+          if (typeof getPredefinedColor === "string") {
+            color = getPredefinedColor.replace(
+              "--osmi-opacity",
+              defaultColor[1] !== undefined
+                ? (Number(defaultColor[1]) / 100).toFixed(2)
+                : "1"
+            );
+            returnColorOnly = true;
+          }
+        }
       } else {
         color = "";
         returnColorOnly = false;
@@ -44,8 +83,15 @@ export const applyHelper =
         // Get syntax list from each args
         const argStyle = args[i];
         const syntaxList = argStyle.split(" ");
+        const sortingSyntax = [
+          ...syntaxList.filter(
+            (item) => !item.includes("dark:") && !item.includes("notch:")
+          ),
+          ...syntaxList.filter((item) => item.includes("notch:")),
+          ...syntaxList.filter((item) => item.includes("dark:")),
+        ];
 
-        syntaxList.map((syntax: string) => {
+        sortingSyntax.map((syntax: string) => {
           // Only allow string syntax
           if (typeof syntax !== "string") {
             throw new Error("Invalid styling syntax.");

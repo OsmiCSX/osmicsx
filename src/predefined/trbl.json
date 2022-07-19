@@ -6,7 +6,12 @@
   "right-0": { "right": 0 },
   "bottom-0": { "bottom": 0 },
   "left-0": { "left": 0 },
-  "inset-auto": { "top": "auto", "right": "auto", "bottom": "auto", "left": "auto" },
+  "inset-auto": {
+    "top": "auto",
+    "right": "auto",
+    "bottom": "auto",
+    "left": "auto"
+  },
   "inset-y-auto": { "top": "auto", "bottom": "auto" },
   "inset-x-auto": { "right": "auto", "left": "auto" },
   "top-auto": { "top": "auto" },
