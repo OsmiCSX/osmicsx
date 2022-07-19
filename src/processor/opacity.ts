@@ -1,5 +1,5 @@
 // Processor to replace --osmi-opacity with custom opacity if exists
-export default (
+export const opacityProcessor = (
   styles: object,
   bgOpacity: number,
   borderOpacity: number,

@@ -4,7 +4,7 @@ export type NamedStyles<T> = {
   [P in keyof T]: ViewStyle | TextStyle | ImageStyle | StyleProp<T>;
 };
 
-export enum Mode {
+export enum ThemeMode {
   "system" = "system",
   "dark" = "dark",
   "light" = "light",
@@ -12,8 +12,8 @@ export enum Mode {
 
 export interface OsmiContextInstance {
   theme: Record<string, object | string>;
-  mode: keyof typeof Mode;
-  switchMode: (newMode: keyof typeof Mode) => void;
+  mode: keyof typeof ThemeMode;
+  switchMode: (newMode: keyof typeof ThemeMode) => void;
   scaleWidth: (width: number) => number;
   scaleHeight: (height: number) => number;
 }
@@ -22,10 +22,27 @@ export interface ApplyInstance {
   apply: <T extends NamedStyles<T> | NamedStyles<any>>(
     ...args: string[]
   ) => any;
-  switchTheme: (newMode: keyof typeof Mode) => void;
+  switchTheme: (newMode: keyof typeof ThemeMode) => void;
   scaleWidth: (width: number) => number;
   scaleHeight: (height: number) => number;
 }
+
+export interface OsmiProviderProps {
+  theme?: CustomThemeType;
+  children: JSX.Element;
+}
+
+export type WidthSize = {
+  maxWidth?: number;
+  minWidth?: number;
+  width?: number;
+};
+
+export type HeightSize = {
+  maxHeight?: number;
+  minHeight?: number;
+  height?: number;
+};
 
 export interface BackgroundDark {
   backgroundColor: string;

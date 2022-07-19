@@ -19,6 +19,9 @@ import * as verticalAlign from "./vertical-align.json";
 // Background Color
 import backgroundColor from "./background-color";
 
+// Display
+import * as display from "./display.json";
+
 // Flex
 import * as flex from "./flex.json";
 import * as flexWrap from "./flex-wrap.json";
@@ -82,6 +85,9 @@ export const osmiPredfined: Record<string, object | string> = {
 
   // Background Color
   ...backgroundColor,
+
+  // Display
+  ...display,
 
   // Flex
   ...flex,

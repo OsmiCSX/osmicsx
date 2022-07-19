@@ -68,9 +68,5 @@
   "peerDependencies": {
     "@types/react": "^18.x.x",
     "@types/react-native": "^0.68.x"
-  },
-  "dependencies": {
-    "mobx": "^6.3.7",
-    "mobx-state-tree": "^5.0.2"
   }
 }
