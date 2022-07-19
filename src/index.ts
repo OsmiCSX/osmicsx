@@ -13,9 +13,6 @@ import { scaleWidth, scaleHeight } from "./lib/responsive";
 // Import Provider
 import { OsmiProvider } from "./core/provider";
 
-// Import apply() helper
-// import apply from "./core/apply";
-
 // Import CustomThemeType
 import { CustomThemeType } from "./processor/processor.type";
 
@@ -23,6 +20,7 @@ import { CustomThemeType } from "./processor/processor.type";
 import { appearanceHook } from "./core/appearance";
 
 import { useStyles } from "./core/hooks";
+import { withStyles } from "./core/hoc";
 
 /**
  * Export helper method
@@ -35,4 +33,5 @@ export {
   appearanceHook,
   CustomThemeType,
   useStyles,
+  withStyles,
 };

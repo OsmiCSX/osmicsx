@@ -4,7 +4,6 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "./dist",
     "strict": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,

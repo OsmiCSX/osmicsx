@@ -1,67 +1,67 @@
 // Colors
-import * as colors from "./colors.json"
+import * as colors from "./colors.json";
 
 // Spacing
-import * as padding from "./padding.json"
-import * as margin from "./margin.json"
+import * as padding from "./padding.json";
+import * as margin from "./margin.json";
 
 // Typography
-import textColor from "./text-color"
-import * as textSize from "./text-size.json"
-import textResponsive from "./text-responsive"
-import * as textAlign from "./text-align.json"
-import * as textStyle from "./text-style.json"
-import * as textTransform from "./text-transform.json"
-import * as letterSpacing from "./letter-spacing.json"
-import * as lineHeight from "./line-height.json"
-import * as verticalAlign from "./vertical-align.json"
+import textColor from "./text-color";
+import * as textSize from "./text-size.json";
+import textResponsive from "./text-responsive";
+import * as textAlign from "./text-align.json";
+import * as textStyle from "./text-style.json";
+import * as textTransform from "./text-transform.json";
+import * as letterSpacing from "./letter-spacing.json";
+import * as lineHeight from "./line-height.json";
+import * as verticalAlign from "./vertical-align.json";
 
 // Background Color
-import backgroundColor from "./background-color"
+import backgroundColor from "./background-color";
 
 // Flex
-import * as flex from "./flex.json"
-import * as flexWrap from "./flex-wrap.json"
-import * as flexDirection from "./flex-direction.json"
-import * as flexGrow from "./flex-grow.json"
-import * as flexShrink from "./flex-shrink.json"
-import * as alignItems from "./align-items.json"
-import * as alignContent from "./align-content.json"
-import * as alignSelf from "./align-self.json"
-import * as justifyContent from "./justify-content.json"
+import * as flex from "./flex.json";
+import * as flexWrap from "./flex-wrap.json";
+import * as flexDirection from "./flex-direction.json";
+import * as flexGrow from "./flex-grow.json";
+import * as flexShrink from "./flex-shrink.json";
+import * as alignItems from "./align-items.json";
+import * as alignContent from "./align-content.json";
+import * as alignSelf from "./align-self.json";
+import * as justifyContent from "./justify-content.json";
 
 // Border
-import borderColor from "./border-color"
-import * as borderStyle from "./border-style.json"
-import * as borderWidth from "./border-width.json"
-import * as borderRadius from "./border-radius.json"
+import borderColor from "./border-color";
+import * as borderStyle from "./border-style.json";
+import * as borderWidth from "./border-width.json";
+import * as borderRadius from "./border-radius.json";
 
 // Effect
-import * as shadow from "./shadow.json"
-import * as opacity from "./opacity.json"
+import * as shadow from "./shadow.json";
+import * as opacity from "./opacity.json";
 
 // Transform
-import * as rotate from "./rotate.json"
+import * as rotate from "./rotate.json";
 
 // Position
-import * as position from "./position.json"
+import * as position from "./position.json";
 
 // Overflow
-import * as overflow from "./overflow.json"
+import * as overflow from "./overflow.json";
 
 // Resize (only for image)
-import * as resizeMode from "./resize-mode.json"
+import * as resizeMode from "./resize-mode.json";
 
 // Inset
-import * as trbl from "./trbl.json"
+import * as trbl from "./trbl.json";
 
 // Z-Index
-import * as zIndex from "./z-index.json"
+import * as zIndex from "./z-index.json";
 
 /**
  * Mapping all styles
  */
-export default {
+export const osmiPredfined: Record<string, object | string> = {
   // Colors
   ...colors,
 
@@ -120,5 +120,5 @@ export default {
   ...trbl,
 
   // Z-Index
-  ...zIndex
+  ...zIndex,
 };

@@ -1,14 +1,12 @@
+import React, { useContext } from "react";
 import { Appearance } from "react-native";
+import { OsmiContext } from "../core/context";
 
-// import appearance hook.
-import { appearanceHook } from "../core/appearance";
-
-export default (syntax: string): boolean => {
+export default (syntax: string, mode: string): boolean => {
   if (
     syntax.includes("dark:") &&
-    (appearanceHook.activeTheme === "dark" ||
-      (appearanceHook.activeTheme === "system" &&
-        Appearance.getColorScheme() === "dark"))
+    (mode === "dark" ||
+      (mode === "system" && Appearance.getColorScheme() === "dark"))
   ) {
     return true;
   }

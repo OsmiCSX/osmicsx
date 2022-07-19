@@ -1,26 +1,13 @@
-// import pre-defined styles
-import map from "../predefined/map";
-
 // responsive module
 import { convertResponsive } from "../lib/responsive";
 
 // percentage
 import { convertPercentage } from "../lib/percentage";
 
-// import dark theme processor
-import darkThemeProcessor from "../processor/darkThemeProcessor";
-
 // import opacity processing
 import opacityProcessor from "../processor/opacityProcessor";
 
 import isDark from "../lib/darkThemeHelper";
-
-// Import Processor Type
-import {
-  BackgroundDark,
-  BorderDark,
-  TextDark,
-} from "../processor/processor.type";
 
 // Import iPhone X helper
 import { isIphoneX } from "../lib/iphoneXHelper";
@@ -37,25 +24,19 @@ type HeightSize = {
   height?: number;
 };
 
-export default class Instance {
+export class Instance {
   private _predefined: object | any;
   private _obj: object;
   private _bgOpacity: number;
   private _borderOpacity: number;
   private _textOpacity: number;
-  private _bgDark?: BackgroundDark;
-  private _borderDark?: BorderDark;
-  private _textDark?: TextDark;
 
-  constructor(customStyle?: object) {
-    this._predefined = customStyle ? customStyle : map;
+  constructor(themeStyle?: object) {
+    this._predefined = themeStyle;
     this._obj = {};
     this._bgOpacity = 100;
     this._borderOpacity = 100;
     this._textOpacity = 100;
-    this._bgDark = undefined;
-    this._borderDark = undefined;
-    this._textDark = undefined;
   }
 
   updateObject(data: object | undefined) {
@@ -304,8 +285,8 @@ export default class Instance {
    * Checking if it's using dark mode or not
    * @param syntax
    */
-  darkTheme(syntax: string) {
-    if (isDark(syntax)) {
+  darkTheme(syntax: string, mode: string) {
+    if (isDark(syntax, mode)) {
       const extractSyntax = syntax.replace("dark:", "");
 
       this.predefinedStyles(extractSyntax);
