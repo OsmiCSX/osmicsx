@@ -40,7 +40,7 @@ export const applyHelper =
           ?.split("/");
         const darkColor = findDarkColor?.replace("dark:color-", "")?.split("/");
 
-        if (isDark(findDarkColor, themeContext?.mode)) {
+        if (isDark(findDarkColor, themeContext?.mode ?? "")) {
           const getPredefinedColor = themeContext?.theme[darkColor[0]];
 
           if (typeof getPredefinedColor === "string") {
@@ -85,8 +85,14 @@ export const applyHelper =
         const syntaxList = argStyle.split(" ");
         const sortingSyntax = [
           ...syntaxList.filter(
-            (item) => !item.includes("dark:") && !item.includes("notch:")
+            (item) =>
+              !item.includes("dark:") &&
+              !item.includes("notch:") &&
+              !item.includes("android:") &&
+              !item.includes("ios:")
           ),
+          ...syntaxList.filter((item) => item.includes("android:")),
+          ...syntaxList.filter((item) => item.includes("ios:")),
           ...syntaxList.filter((item) => item.includes("notch:")),
           ...syntaxList.filter((item) => item.includes("dark:")),
         ];
@@ -129,6 +135,12 @@ export const applyHelper =
 
           // Generate from pre-defined styles
           instanceStyle.predefinedStyles(syntax);
+
+          // Check for android platform only
+          instanceStyle.android(syntax);
+
+          // Check for ios platform only
+          instanceStyle.ios(syntax);
 
           // Check if there's notch or not.
           instanceStyle.notch(syntax);
