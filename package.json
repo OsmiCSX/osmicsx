@@ -1,6 +1,6 @@
 {
   "name": "osmicsx",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "An utility style framework for React Native.",
   "type": "module",
   "license": "MIT",
