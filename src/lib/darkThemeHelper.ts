@@ -1,14 +1,10 @@
 import { Appearance } from "react-native";
 
-// import appearance hook.
-import { appearanceHook } from "../core/appearance";
-
-export default (syntax: string): boolean => {
+export const isDark = (syntax: string, mode: string): boolean => {
   if (
     syntax.includes("dark:") &&
-    (appearanceHook.activeTheme === "dark" ||
-      (appearanceHook.activeTheme === "system" &&
-        Appearance.getColorScheme() === "dark"))
+    (mode === "dark" ||
+      (mode === "system" && Appearance.getColorScheme() === "dark"))
   ) {
     return true;
   }

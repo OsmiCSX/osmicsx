@@ -1,5 +1,4 @@
-// import pre-defined styles
-import map from "../predefined/map";
+import { Platform } from "react-native";
 
 // responsive module
 import { convertResponsive } from "../lib/responsive";
@@ -7,55 +6,31 @@ import { convertResponsive } from "../lib/responsive";
 // percentage
 import { convertPercentage } from "../lib/percentage";
 
-// import dark theme processor
-import darkThemeProcessor from "../processor/darkThemeProcessor";
-
 // import opacity processing
-import opacityProcessor from "../processor/opacityProcessor";
+import { opacityProcessor } from "../processor/opacity";
 
-import isDark from "../lib/darkThemeHelper";
-
-// Import Processor Type
-import {
-  BackgroundDark,
-  BorderDark,
-  TextDark,
-} from "../processor/processor.type";
+// import dark theme checker
+import { isDark } from "../lib/darkThemeHelper";
 
 // Import iPhone X helper
 import { isIphoneX } from "../lib/iphoneXHelper";
 
-type WidthSize = {
-  maxWidth?: number;
-  minWidth?: number;
-  width?: number;
-};
+// Import types
+import type { WidthSize, HeightSize } from "../types/osmi.types";
 
-type HeightSize = {
-  maxHeight?: number;
-  minHeight?: number;
-  height?: number;
-};
-
-export default class Instance {
+export class Instance {
   private _predefined: object | any;
   private _obj: object;
   private _bgOpacity: number;
   private _borderOpacity: number;
   private _textOpacity: number;
-  private _bgDark?: BackgroundDark;
-  private _borderDark?: BorderDark;
-  private _textDark?: TextDark;
 
-  constructor(customStyle?: object) {
-    this._predefined = customStyle ? customStyle : map;
+  constructor(themeStyle?: object) {
+    this._predefined = themeStyle;
     this._obj = {};
     this._bgOpacity = 100;
     this._borderOpacity = 100;
     this._textOpacity = 100;
-    this._bgDark = undefined;
-    this._borderDark = undefined;
-    this._textDark = undefined;
   }
 
   updateObject(data: object | undefined) {
@@ -304,11 +279,91 @@ export default class Instance {
    * Checking if it's using dark mode or not
    * @param syntax
    */
-  darkTheme(syntax: string) {
-    if (isDark(syntax)) {
+  darkTheme(syntax: string, mode: string) {
+    if (isDark(syntax, mode)) {
       const extractSyntax = syntax.replace("dark:", "");
 
       this.predefinedStyles(extractSyntax);
+    }
+  }
+
+  /**
+   * Checking if it's only android platform
+   * @param syntax
+   */
+  android(syntax: string) {
+    if (syntax.includes("android:") && Platform.OS === "android") {
+      const extractStyle = syntax.replace("android:", "");
+
+      // check if width & size using responsive method or not
+      this.responsiveSize(extractStyle);
+
+      // auto generate percentage size
+      this.percentSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedWidthSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedHeightSize(extractStyle);
+
+      // auto generate transform position
+      this.transformTranslate(extractStyle);
+
+      // auto generate transform scale
+      this.transformScale(extractStyle);
+
+      // auto generate transform skew
+      this.transformSkew(extractStyle);
+
+      // auto generate transform rotate
+      this.transformRotate(extractStyle);
+
+      // Check if there's coloring opacity
+      this.colorOpacity(extractStyle);
+
+      // Generate from pre-defined styles
+      this.predefinedStyles(extractStyle);
+    }
+  }
+
+  /**
+   * Checking if it's only ios platform
+   * @param syntax
+   */
+  ios(syntax: string) {
+    if (syntax.includes("ios:") && Platform.OS === "ios") {
+      const extractStyle = syntax.replace("ios:", "");
+
+      // check if width & size using responsive method or not
+      this.responsiveSize(extractStyle);
+
+      // auto generate percentage size
+      this.percentSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedWidthSize(extractStyle);
+
+      // auto generate fixed width size
+      this.fixedHeightSize(extractStyle);
+
+      // auto generate transform position
+      this.transformTranslate(extractStyle);
+
+      // auto generate transform scale
+      this.transformScale(extractStyle);
+
+      // auto generate transform skew
+      this.transformSkew(extractStyle);
+
+      // auto generate transform rotate
+      this.transformRotate(extractStyle);
+
+      // Check if there's coloring opacity
+      this.colorOpacity(extractStyle);
+
+      // Generate from pre-defined styles
+      this.predefinedStyles(extractStyle);
     }
   }
 

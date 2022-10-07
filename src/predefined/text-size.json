@@ -6,8 +6,18 @@
   "text-lg": { "fontSize": 18 },
   "text-xl": { "fontSize": 20 },
   "text-2xl": { "fontSize": 22 },
-  "text-3xl": { "fontSize": 24},
-  "text-4xl": { "fontSize": 26},
-  "text-5xl": { "fontSize": 28},
-  "text-6xl": { "fontSize": 30}
+  "text-3xl": { "fontSize": 24 },
+  "text-4xl": { "fontSize": 26 },
+  "text-5xl": { "fontSize": 28 },
+  "text-6xl": { "fontSize": 30 },
+  "text-7xl": { "fontSize": 32 },
+  "text-8xl": { "fontSize": 34 },
+  "text-9xl": { "fontSize": 36 },
+  "text-xxl": { "fontSize": 38 },
+  "text-2xxl": { "fontSize": 40 },
+  "text-3xxl": { "fontSize": 42 },
+  "text-5xxl": { "fontSize": 44 },
+  "text-6xxl": { "fontSize": 46 },
+  "text-7xxl": { "fontSize": 48 },
+  "text-8xxl": { "fontSize": 50 }
 }
