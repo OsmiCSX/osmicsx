@@ -7,29 +7,13 @@
  * file that was distributed with this source code.
  */
 
-// Import Scale Utility
-import { scaleWidth, scaleHeight } from './lib/responsive'
-
 // Import Provider
-import OsmiProvider from './core/provider'
+import { OsmiProvider } from "./core/provider";
 
-// Import apply() helper
-import apply from './core/apply'
-
-// Import CustomThemeType
-import { CustomThemeType } from './processor/processor.type'
-
-// Import appereanceHook
-import { appearanceHook } from './core/appearance'
+import { useStyles } from "./core/hooks";
+import { withStyles } from "./core/hoc";
 
 /**
  * Export helper method
  */
-export {
-  apply,
-  scaleWidth,
-  scaleHeight,
-  OsmiProvider,
-  appearanceHook,
-  CustomThemeType,
-}
+export { OsmiProvider, useStyles, withStyles };
