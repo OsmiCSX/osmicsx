@@ -1,9 +1,10 @@
 import React, { useCallback } from "react";
 import { OsmiContext } from "./context";
 import { applyHelper } from "./apply";
-import type { NamedStyles } from "../types/osmi.types";
+import { colorHelper } from "./color";
+import type { NamedStyles, ApplyInstance } from "../types/osmi.types";
 
-export const useStyles = () => {
+export const useStyles = (): ApplyInstance => {
   const themeContext = React.useContext(OsmiContext);
 
   if (themeContext === null) {
@@ -17,8 +18,22 @@ export const useStyles = () => {
     [themeContext]
   );
 
+  const colors = useCallback(
+    (...args: string[]): string | string[] => {
+      if (args.length === 1) {
+        return colorHelper(args[0])(themeContext);
+      } else if (args.length === 2) {
+        return args.map((syntax) => colorHelper(syntax)(themeContext));
+      } else {
+        throw Error("Invalid color syntax");
+      }
+    },
+    [themeContext]
+  );
+
   return {
     apply,
+    colors,
     switchTheme: themeContext.switchMode,
     scaleWidth: themeContext.scaleWidth,
     scaleHeight: themeContext.scaleHeight,
