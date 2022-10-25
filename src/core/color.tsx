@@ -6,9 +6,8 @@ export const colorHelper =
     const splitSyntax = syntax.split(" ");
     let color = "";
 
-    if (splitSyntax.length === 1 && splitSyntax[0].includes("color-")) {
-      const removePrefix = splitSyntax[0].replace("color-", "");
-      const splitOpacity = removePrefix.split("/");
+    if (splitSyntax.length === 1) {
+      const splitOpacity = splitSyntax[0].split("/");
       const getPredefinedColor = themeContext?.theme[splitOpacity[0]];
 
       if (typeof getPredefinedColor === "string") {
@@ -20,19 +19,19 @@ export const colorHelper =
         );
 
         return color;
+      } else {
+        throw Error("Invalid color syntax");
       }
-
-      throw Error("Invalid color syntax");
     } else if (
       splitSyntax.length === 2 &&
-      splitSyntax.some((syntax) => syntax.includes("dark:color-"))
+      splitSyntax.some((syntax) => syntax.includes("dark:"))
     ) {
       const findDefaultColor =
-        splitSyntax.find((syntax) => !syntax.includes("dark:color-")) ?? "";
+        splitSyntax.find((syntax) => !syntax.includes("dark:")) ?? "";
       const findDarkColor =
-        splitSyntax.find((syntax) => syntax.includes("dark:color-")) ?? "";
-      const defaultColor = findDefaultColor?.replace("color-", "")?.split("/");
-      const darkColor = findDarkColor?.replace("dark:color-", "")?.split("/");
+        splitSyntax.find((syntax) => syntax.includes("dark:")) ?? "";
+      const defaultColor = findDefaultColor?.split("/");
+      const darkColor = findDarkColor?.replace("dark:", "")?.split("/");
 
       if (isDark(findDarkColor, themeContext?.mode ?? "")) {
         const getPredefinedColor = themeContext?.theme[darkColor[0]];
@@ -46,9 +45,9 @@ export const colorHelper =
           );
 
           return color;
+        } else {
+          throw Error("Invalid color syntax");
         }
-
-        throw Error("Invalid color syntax");
       } else {
         const getPredefinedColor = themeContext?.theme[defaultColor[0]];
 
@@ -60,11 +59,11 @@ export const colorHelper =
               : "1"
           );
           return color;
+        } else {
+          throw Error("Invalid color syntax");
         }
-
-        throw Error("Invalid color syntax");
       }
+    } else {
+      throw Error("Invalid color syntax");
     }
-
-    throw Error("Invalid color syntax");
   };

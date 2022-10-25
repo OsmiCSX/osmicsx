@@ -18,28 +18,22 @@ export const useStyles = () => {
     [themeContext]
   );
 
-  const color = useCallback(
+  const colors = useCallback(
     (...args: string[]): string | string[] => {
-      if (args.length === 1 && args[0].includes("color-")) {
+      if (args.length === 1) {
         return colorHelper(args[0])(themeContext);
-      }
-
-      if (
-        args.length === 2 &&
-        args[0].includes("color-") &&
-        args[1].includes("color-1")
-      ) {
+      } else if (args.length === 2) {
         return args.map((syntax) => colorHelper(syntax)(themeContext));
+      } else {
+        throw Error("Invalid color syntax");
       }
-
-      throw Error("Invalid color syntax");
     },
     [themeContext]
   );
 
   return {
     apply,
-    color,
+    colors,
     switchTheme: themeContext.switchMode,
     scaleWidth: themeContext.scaleWidth,
     scaleHeight: themeContext.scaleHeight,
