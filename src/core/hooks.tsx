@@ -2,9 +2,9 @@ import React, { useCallback } from "react";
 import { OsmiContext } from "./context";
 import { applyHelper } from "./apply";
 import { colorHelper } from "./color";
-import type { NamedStyles } from "../types/osmi.types";
+import type { NamedStyles, ApplyInstance } from "../types/osmi.types";
 
-export const useStyles = () => {
+export const useStyles = (): ApplyInstance => {
   const themeContext = React.useContext(OsmiContext);
 
   if (themeContext === null) {
