@@ -34,39 +34,6 @@ export const applyHelper =
           throw new Error("Invalid styling syntax.");
         }
 
-        // check if width & size using responsive method or not
-        instanceStyle.responsiveSize(syntax);
-
-        // auto generate percentage size
-        instanceStyle.percentSize(syntax);
-
-        // auto generate fixed width size
-        instanceStyle.fixedWidthSize(syntax);
-
-        // auto generate fixed width size
-        instanceStyle.fixedHeightSize(syntax);
-
-        // auto generate transform position
-        instanceStyle.transformTranslate(syntax);
-
-        // auto generate transform scale
-        instanceStyle.transformScale(syntax);
-
-        // auto generate transform skew
-        instanceStyle.transformSkew(syntax);
-
-        // auto generate transform rotate
-        instanceStyle.transformRotate(syntax);
-
-        // Check if there's coloring opacity
-        instanceStyle.colorOpacity(syntax);
-
-        // Check if there's any dark theme
-        instanceStyle.darkTheme(syntax, themeContext?.mode ?? "system");
-
-        // Generate from pre-defined styles
-        instanceStyle.predefinedStyles(syntax);
-
         // Check for android platform only
         instanceStyle.android(syntax);
 
@@ -75,6 +42,41 @@ export const applyHelper =
 
         // Check if there's notch or not.
         instanceStyle.notch(syntax);
+
+        if (!syntax.includes("android:") && !syntax.includes("ios:") && !syntax.includes("notch:")) {
+          // check if width & size using responsive method or not
+          instanceStyle.responsiveSize(syntax);
+
+          // auto generate percentage size
+          instanceStyle.percentSize(syntax);
+
+          // auto generate fixed width size
+          instanceStyle.fixedWidthSize(syntax);
+
+          // auto generate fixed width size
+          instanceStyle.fixedHeightSize(syntax);
+
+          // auto generate transform position
+          instanceStyle.transformTranslate(syntax);
+
+          // auto generate transform scale
+          instanceStyle.transformScale(syntax);
+
+          // auto generate transform skew
+          instanceStyle.transformSkew(syntax);
+
+          // auto generate transform rotate
+          instanceStyle.transformRotate(syntax);
+
+          // Check if there's coloring opacity
+          instanceStyle.colorOpacity(syntax);
+
+          // Check if there's any dark theme
+          instanceStyle.darkTheme(syntax, themeContext?.mode ?? "system");
+
+          // Generate from pre-defined styles
+          instanceStyle.predefinedStyles(syntax);
+        }
       });
 
       outputStyles.push(instanceStyle.getOutputStyle());
