@@ -20,7 +20,7 @@ export interface OsmiContextInstance {
 
 export interface ApplyInstance {
   apply: <T extends NamedStyles<T> | NamedStyles<any>>(
-    ...args: string[]
+    ...args: (string | boolean)[]
   ) => any;
   colors: (
     ...args: string[]
