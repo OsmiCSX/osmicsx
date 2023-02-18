@@ -12,7 +12,9 @@ export const useStyles = (): ApplyInstance => {
   }
 
   const apply = useCallback(
-    <T extends NamedStyles<T> | NamedStyles<any>>(...args: string[]) => {
+    <T extends NamedStyles<T> | NamedStyles<any>>(
+      ...args: (boolean | string)[]
+    ) => {
       return applyHelper(...args)(themeContext);
     },
     [themeContext]
