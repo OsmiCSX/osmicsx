@@ -2,8 +2,8 @@ import { isDark } from "../lib/darkThemeHelper";
 import type { OsmiContextInstance } from "../types/osmi.types";
 
 export const colorHelper =
-  (syntax: string) => (themeContext: OsmiContextInstance | null) => {
-    const splitSyntax = syntax.split(" ");
+  (syntax: string | boolean) => (themeContext: OsmiContextInstance | null) => {
+    const splitSyntax = (syntax as string).split(" ");
     let color = "";
 
     if (splitSyntax.length === 1) {

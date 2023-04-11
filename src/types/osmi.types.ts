@@ -20,11 +20,9 @@ export interface OsmiContextInstance {
 
 export interface ApplyInstance {
   apply: <T extends NamedStyles<T> | NamedStyles<any>>(
-    ...args: (string | boolean)[]
+    ...args: (string | boolean | undefined)[]
   ) => any;
-  colors: (
-    ...args: string[]
-  ) => string | string[];
+  colors: (...args: (string | boolean | undefined)[]) => string | string[];
   switchTheme: (newMode: keyof typeof ThemeMode) => void;
   scaleWidth: (width: number) => number;
   scaleHeight: (height: number) => number;
