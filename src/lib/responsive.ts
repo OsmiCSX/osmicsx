@@ -5,12 +5,13 @@
  *
  * https://codedlines.com
  */
-import { Component } from 'react';
-import { Dimensions, PixelRatio } from 'react-native';
+import { Component } from "react";
+import { Dimensions, EmitterSubscription, PixelRatio } from "react-native";
 
 // Retrieve initial screen's width & height
-let screenWidth: number = Dimensions.get('window').width;
-let screenHeight: number = Dimensions.get('window').height;
+let screenWidth: number = Dimensions.get("window").width;
+let screenHeight: number = Dimensions.get("window").height;
+let dimensionOnChange: EmitterSubscription;
 
 /**
  * Converts provided width percentage to independent pixel (dp).
@@ -21,7 +22,7 @@ let screenHeight: number = Dimensions.get('window').height;
 const scaleWidth = (widthPercent: number): number => {
   // Use PixelRatio.roundToNearestPixel method in order to round the layout
   // size (dp) to the nearest one that correspons to an integer number of pixels.
-  return PixelRatio.roundToNearestPixel(screenWidth * widthPercent / 100);
+  return PixelRatio.roundToNearestPixel((screenWidth * widthPercent) / 100);
 };
 
 /**
@@ -33,7 +34,7 @@ const scaleWidth = (widthPercent: number): number => {
 const scaleHeight = (heightPercent: number): number => {
   // Use PixelRatio.roundToNearestPixel method in order to round the layout
   // size (dp) to the nearest one that correspons to an integer number of pixels.
-  return PixelRatio.roundToNearestPixel(screenHeight * heightPercent / 100);
+  return PixelRatio.roundToNearestPixel((screenHeight * heightPercent) / 100);
 };
 
 /**
@@ -42,47 +43,47 @@ const scaleHeight = (heightPercent: number): number => {
  * @return {object} object style width / height / font size
  */
 const convertResponsive = ([type, value]: string[]): object | undefined => {
-  switch(type) {
+  switch (type) {
     case "w":
       return {
-        width: scaleWidth(Number(value))
-      }
+        width: scaleWidth(Number(value)),
+      };
 
     case "h":
       return {
-        height: scaleHeight(Number(value))
-      }
+        height: scaleHeight(Number(value)),
+      };
 
     case "text":
       return {
-        fontSize: scaleWidth(Number(value))
-      }
+        fontSize: scaleWidth(Number(value)),
+      };
 
     case "min-w":
       return {
-        minWidth: scaleWidth(Number(value))
-      }
+        minWidth: scaleWidth(Number(value)),
+      };
 
     case "min-h":
       return {
-        minHeight: scaleHeight(Number(value))
-      }
+        minHeight: scaleHeight(Number(value)),
+      };
 
     case "max-w":
       return {
-        maxWidth: scaleWidth(Number(value))
-      }
+        maxWidth: scaleWidth(Number(value)),
+      };
 
     case "max-h":
       return {
-        maxHeight: scaleHeight(Number(value))
-      }
+        maxHeight: scaleHeight(Number(value)),
+      };
 
     default:
-      console.warn(`OsmiCSX Responsive: Undefined type of ${type}}`)
-      return undefined
+      console.warn(`OsmiCSX Responsive: Undefined type of ${type}}`);
+      return undefined;
   }
-}
+};
 
 /**
  * Event listener function that detects orientation change (every time it occurs) and triggers
@@ -94,14 +95,14 @@ const convertResponsive = ([type, value]: string[]): object | undefined => {
  *                      invoke setState method and trigger screen rerender (this.setState()).
  */
 const listenOrientationChange = (that: Component) => {
-  Dimensions.addEventListener('change', newDimensions => {
+  dimensionOnChange = Dimensions.addEventListener("change", (newDimensions) => {
     // Retrieve and save new dimensions
     screenWidth = newDimensions.window.width;
     screenHeight = newDimensions.window.height;
 
     // Trigger screen's rerender with a state update of the orientation variable
     that.setState({
-      orientation: screenWidth < screenHeight ? 'portrait' : 'landscape'
+      orientation: screenWidth < screenHeight ? "portrait" : "landscape",
     });
   });
 };
@@ -113,7 +114,7 @@ const listenOrientationChange = (that: Component) => {
  * avoid adding new listeners every time the same component is re-mounted.
  */
 const removeOrientationListener = () => {
-  Dimensions.removeEventListener('change', () => {});
+  dimensionOnChange.remove();
 };
 
 export {
@@ -121,5 +122,5 @@ export {
   scaleHeight,
   convertResponsive,
   listenOrientationChange,
-  removeOrientationListener
+  removeOrientationListener,
 };

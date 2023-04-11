@@ -3,11 +3,7 @@ import { OsmiContext } from "./context";
 import { applyHelper } from "./apply";
 import { colorHelper } from "./color";
 
-import type {
-  NamedStyles,
-  ApplyInstance,
-  OsmiContextInstance,
-} from "../types/osmi.types";
+import type { NamedStyles, ApplyInstance } from "../types/osmi.types";
 
 export const withStyles =
   <P extends ApplyInstance = ApplyInstance>(
@@ -28,11 +24,19 @@ export const withStyles =
     );
 
     const colors = useCallback(
-      (...args: string[]): string | string[] => {
+      (...args: (string | boolean | undefined)[]): string | string[] => {
         if (args.length === 1) {
-          return colorHelper(args[0])(themeContext);
+          if (args[0] !== false && args[0] !== undefined) {
+            return colorHelper(args[0] as string)(themeContext);
+          }
+
+          return "";
         } else if (args.length === 2) {
-          return args.map((syntax) => colorHelper(syntax)(themeContext));
+          return args.map((syntax) =>
+            syntax !== false && syntax !== undefined
+              ? colorHelper(syntax)(themeContext)
+              : ""
+          );
         } else {
           throw Error("Invalid color syntax");
         }
