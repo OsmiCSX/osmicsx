@@ -17,7 +17,7 @@ export const withStyles =
     }
 
     const apply = useCallback(
-      <T extends NamedStyles<T> | NamedStyles<any>>(...args: string[]) => {
+      <T extends NamedStyles<T> | NamedStyles<any>>(...args: (string | boolean | undefined)[]) => {
         return applyHelper(...args)(themeContext);
       },
       [themeContext]

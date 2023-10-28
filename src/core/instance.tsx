@@ -33,11 +33,8 @@ export class Instance {
     this._textOpacity = 100;
   }
 
-  updateObject(data: object | undefined) {
-    this._obj = {
-      ...this._obj,
-      ...data,
-    };
+  private updateObject(data: object | undefined) {
+    this._obj = { ...this._obj, ...data };
   }
 
   /**
@@ -46,6 +43,19 @@ export class Instance {
    */
   predefinedStyles(data: string) {
     this.updateObject(this._predefined[data]);
+  }
+
+  applyStyles(syntax: string) {
+    this.responsiveSize(syntax);
+    this.percentSize(syntax);
+    this.fixedWidthSize(syntax);
+    this.fixedHeightSize(syntax);
+    this.transformTranslate(syntax);
+    this.transformScale(syntax);
+    this.transformSkew(syntax);
+    this.transformRotate(syntax);
+    this.colorOpacity(syntax);
+    this.predefinedStyles(syntax);
   }
 
   /**
@@ -293,37 +303,7 @@ export class Instance {
    */
   android(syntax: string) {
     if (syntax.includes("android:") && Platform.OS === "android") {
-      const extractStyle = syntax.replace("android:", "");
-
-      // check if width & size using responsive method or not
-      this.responsiveSize(extractStyle);
-
-      // auto generate percentage size
-      this.percentSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedWidthSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedHeightSize(extractStyle);
-
-      // auto generate transform position
-      this.transformTranslate(extractStyle);
-
-      // auto generate transform scale
-      this.transformScale(extractStyle);
-
-      // auto generate transform skew
-      this.transformSkew(extractStyle);
-
-      // auto generate transform rotate
-      this.transformRotate(extractStyle);
-
-      // Check if there's coloring opacity
-      this.colorOpacity(extractStyle);
-
-      // Generate from pre-defined styles
-      this.predefinedStyles(extractStyle);
+      this.applyStyles(syntax.replace("android:", ""));
     }
   }
 
@@ -333,37 +313,7 @@ export class Instance {
    */
   ios(syntax: string) {
     if (syntax.includes("ios:") && Platform.OS === "ios") {
-      const extractStyle = syntax.replace("ios:", "");
-
-      // check if width & size using responsive method or not
-      this.responsiveSize(extractStyle);
-
-      // auto generate percentage size
-      this.percentSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedWidthSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedHeightSize(extractStyle);
-
-      // auto generate transform position
-      this.transformTranslate(extractStyle);
-
-      // auto generate transform scale
-      this.transformScale(extractStyle);
-
-      // auto generate transform skew
-      this.transformSkew(extractStyle);
-
-      // auto generate transform rotate
-      this.transformRotate(extractStyle);
-
-      // Check if there's coloring opacity
-      this.colorOpacity(extractStyle);
-
-      // Generate from pre-defined styles
-      this.predefinedStyles(extractStyle);
+      this.applyStyles(syntax.replace("ios:", ""));
     }
   }
 
@@ -373,34 +323,7 @@ export class Instance {
    */
   notch(syntax: string) {
     if (syntax.includes("notch") && isIphoneX()) {
-      const extractStyle = syntax.replace("notch:", "");
-
-      // check if width & size using responsive method or not
-      this.responsiveSize(extractStyle);
-
-      // auto generate percentage size
-      this.percentSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedWidthSize(extractStyle);
-
-      // auto generate fixed width size
-      this.fixedHeightSize(extractStyle);
-
-      // auto generate transform position
-      this.transformTranslate(extractStyle);
-
-      // auto generate transform scale
-      this.transformScale(extractStyle);
-
-      // auto generate transform skew
-      this.transformSkew(extractStyle);
-
-      // auto generate transform rotate
-      this.transformRotate(extractStyle);
-
-      // Generate from pre-defined styles
-      this.predefinedStyles(extractStyle);
+      this.applyStyles(syntax.replace("notch:", ""));
     }
   }
 
@@ -408,10 +331,6 @@ export class Instance {
     return this._predefined;
   }
 
-  /**
-   * Get final style data
-   * @returns {*|{}}
-   */
   getOutputStyle() {
     return opacityProcessor(
       this._obj,

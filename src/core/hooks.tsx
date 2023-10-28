@@ -13,7 +13,7 @@ export const useStyles = (): ApplyInstance => {
 
   const apply = useCallback(
     <T extends NamedStyles<T> | NamedStyles<any>>(
-      ...args: (boolean | string)[]
+      ...args: (boolean | string | undefined)[]
     ) => {
       return applyHelper(...args)(themeContext);
     },
@@ -21,7 +21,7 @@ export const useStyles = (): ApplyInstance => {
   );
 
   const colors = useCallback(
-    (...args: string[]): string | string[] => {
+    (...args: (string | boolean | undefined)[]): string | string[] => {
       if (args.length === 1) {
         return colorHelper(args[0])(themeContext);
       } else if (args.length === 2) {
