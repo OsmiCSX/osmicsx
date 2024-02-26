@@ -1,41 +1,18 @@
 import { isDark } from "../lib/darkThemeHelper";
 import type { OsmiContextInstance } from "../types/osmi.types";
 
-const getColor = (themeContext: OsmiContextInstance | null, colorKey: string, opacity: string) => {
-  const predefinedColor = themeContext?.theme[colorKey];
-
-  if (typeof predefinedColor === "string") {
-    return predefinedColor.replace(
-      "--osmi-opacity",
-      opacity !== undefined ? (Number(opacity) / 100).toFixed(2) : "1"
-    );
-  } else {
+const getColor = (themeContext: OsmiContextInstance, colorKey: string, opacity?: string) => {
+  const color = themeContext.theme[colorKey];
+  if (typeof color !== "string") {
     throw Error("Invalid color syntax");
   }
+  const alpha = opacity ? (Number(opacity) / 100).toFixed(2) : "1";
+  return color.replace("--osmi-opacity", alpha);
 };
 
-export const colorHelper =
-  (syntax: string | boolean | undefined) => (themeContext: OsmiContextInstance | null) => {
-    const splitSyntax = (syntax as string).split(" ");
+export const colorHelper = (syntax: string) => (themeContext: OsmiContextInstance) => {
+  const [baseSyntax, darkSyntax] = syntax.split(" ").map(s => s.replace("dark:", ""));
+  const [colorKey, opacity] = (isDark(darkSyntax, themeContext.mode) ? darkSyntax : baseSyntax).split("/");
 
-    if (splitSyntax.length === 1) {
-      const [colorKey, opacity] = splitSyntax[0].split("/");
-      return getColor(themeContext, colorKey, opacity);
-    }
-
-    if (splitSyntax.length === 2 && splitSyntax.some((s) => s.includes("dark:"))) {
-      const defaultSyntax = splitSyntax.find((s) => !s.includes("dark:")) ?? "";
-      const darkSyntax = splitSyntax.find((s) => s.includes("dark:"))?.replace("dark:", "") ?? "";
-
-      const [defaultColor, defaultOpacity] = defaultSyntax.split("/");
-      const [darkColor, darkOpacity] = darkSyntax.split("/");
-
-      if (isDark(darkSyntax, themeContext?.mode ?? "")) {
-        return getColor(themeContext, darkColor, darkOpacity);
-      } else {
-        return getColor(themeContext, defaultColor, defaultOpacity);
-      }
-    }
-
-    throw Error("Invalid color syntax");
-  };
+  return getColor(themeContext, colorKey, opacity);
+};

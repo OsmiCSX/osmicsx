@@ -1,25 +1,20 @@
-// import lib converter
 import hexToRGBA from "../lib/hexToRGBA";
-
-// import type
 import { CustomColors } from "../types/osmi.types";
 
-// custom colors processor
-export const customColors = (data: CustomColors): object => {
-  let colorStyles: object = {};
+export const customColors = (
+  data: CustomColors
+): Record<string, string | object> => {
+  return Object.entries(data).reduce<Record<string, string | object>>(
+    (colorStyles, [key, value]) => {
+      const fixedColor = value.startsWith("#") ? hexToRGBA(value) : value;
 
-  // mapping colors
-  Object.entries(data).map(([key, value]): void => {
-    const fixedColor = value.includes("#") ? hexToRGBA(value) : value;
+      colorStyles[key] = fixedColor;
+      colorStyles[`bg-${key}`] = { backgroundColor: fixedColor };
+      colorStyles[`border-${key}`] = { borderColor: fixedColor };
+      colorStyles[`text-${key}`] = { color: fixedColor };
 
-    colorStyles = {
-      ...colorStyles,
-      [key]: fixedColor,
-      [`bg-${key}`]: { backgroundColor: fixedColor },
-      [`border-${key}`]: { borderColor: fixedColor },
-      [`text-${key}`]: { color: fixedColor },
-    };
-  });
-
-  return colorStyles;
+      return colorStyles;
+    },
+    {}
+  );
 };

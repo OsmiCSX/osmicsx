@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { OsmiContext } from "./context";
 import { osmiPredfined } from "../predefined";
 import { customProcessor } from "../processor";
@@ -9,26 +9,29 @@ import { scaleWidth, scaleHeight } from "../lib/responsive";
 // Types
 import type { OsmiProviderProps, ThemeMode } from "../types/osmi.types";
 
-export const OsmiProvider: FC<OsmiProviderProps> = (props) => {
+export const OsmiProvider: FC<OsmiProviderProps> = ({
+  theme: propTheme,
+  children,
+}) => {
   const [mode, setMode] = useState<keyof typeof ThemeMode>("system");
-  const switchMode = (newMode: keyof typeof ThemeMode) => {
+  const switchMode = useCallback((newMode: keyof typeof ThemeMode) => {
     setMode(newMode);
-  };
+  }, []);
 
   const theme = useMemo(() => {
-    return props?.theme !== undefined
+    return propTheme !== undefined
       ? {
           ...osmiPredfined,
-          ...customProcessor(props?.theme),
+          ...customProcessor(propTheme),
         }
       : osmiPredfined;
-  }, [props.theme]);
+  }, [propTheme]);
 
   return (
     <OsmiContext.Provider
       value={{ mode, switchMode, theme, scaleWidth, scaleHeight }}
     >
-      {props.children}
+      {children}
     </OsmiContext.Provider>
   );
 };

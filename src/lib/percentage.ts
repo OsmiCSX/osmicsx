@@ -1,47 +1,43 @@
-/**
- * Detect osmi style and Convert it into Width / Heihgt / Font Size as percentage
- * @param {array} array from split string "%" with type and value
- * @return {object} object style width / height / font size
- */
-export const convertPercentage = ([type, value]: string[]): object | undefined => {
-  switch(type) {
-    case "w":
-      return {
-        width: `${value}%`
-      }
+export type StyleType =
+  | "w"
+  | "h"
+  | "text"
+  | "min-w"
+  | "min-h"
+  | "max-w"
+  | "max-h";
 
-    case "h":
-      return {
-        height: `${value}%`
-      }
-
-    case "text":
-      return {
-        fontSize: `${value}%`
-      }
-
-    case "min-w":
-      return {
-        minWidth: `${value}%`
-      }
-
-    case "min-h":
-      return {
-        minHeight: `${value}%`
-      }
-
-    case "max-w":
-      return {
-        maxWidth: `${value}%`
-      }
-
-    case "max-h":
-      return {
-        maxHeight: `${value}%`
-      }
-
-    default:
-      console.warn(`OsmiCSX Percentage: Undefined type of ${type}}`)
-      return undefined
-  }
+interface StyleObject {
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  minWidth?: string;
+  minHeight?: string;
+  maxWidth?: string;
+  maxHeight?: string;
 }
+
+export const convertPercentage = ([type, value]: [StyleType, string]):
+  | StyleObject
+  | undefined => {
+  const percentageValue = `${value}%`;
+  switch (type) {
+    case "w":
+      return { width: percentageValue };
+    case "h":
+      return { height: percentageValue };
+    case "text":
+      return { fontSize: percentageValue };
+    case "min-w":
+      return { minWidth: percentageValue };
+    case "min-h":
+      return { minHeight: percentageValue };
+    case "max-w":
+      return { maxWidth: percentageValue };
+    case "max-h":
+      return { maxHeight: percentageValue };
+    default:
+      console.warn(`OsmiCSX Percentage: Undefined type of ${type}`);
+      return undefined;
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import { OsmiContext } from "./context";
 import { applyHelper } from "./apply";
 import { colorHelper } from "./color";
@@ -11,25 +11,28 @@ export const useStyles = (): ApplyInstance => {
     throw new Error("You must wrap your components in a OsmiProvider.");
   }
 
-  const apply = useCallback(
-    <T extends NamedStyles<T> | NamedStyles<any>>(
-      ...args: (boolean | string | undefined)[]
-    ) => {
-      return applyHelper(...args)(themeContext);
-    },
+  const apply = useMemo(
+    () =>
+      <T extends NamedStyles<T> | NamedStyles<any>>(
+        ...args: (boolean | string | undefined)[]
+      ) =>
+        applyHelper(...args)(themeContext),
     [themeContext]
   );
 
-  const colors = useCallback(
-    (...args: (string | boolean | undefined)[]): string | string[] => {
-      if (args.length === 1) {
-        return colorHelper(args[0])(themeContext);
-      } else if (args.length === 2) {
-        return args.map((syntax) => colorHelper(syntax)(themeContext));
-      } else {
-        throw Error("Invalid color syntax");
-      }
-    },
+  const colors = useMemo(
+    () =>
+      (...args: (string | boolean | undefined)[]): string | string[] => {
+        if (args.length === 1) {
+          return colorHelper(args[0] as string)(themeContext);
+        } else if (args.length === 2) {
+          return args.map((syntax) =>
+            colorHelper(syntax as string)(themeContext)
+          );
+        } else {
+          throw Error("Invalid color syntax");
+        }
+      },
     [themeContext]
   );
 

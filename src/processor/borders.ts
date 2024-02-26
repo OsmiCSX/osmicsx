@@ -2,52 +2,42 @@
 import { CustomBorder } from "../types/osmi.types";
 
 // custom borders processor
-export const customBorders = (data: CustomBorder): object => {
-  let borderStyles: object = {};
+export const customBorders = (data: CustomBorder): Record<string, any> => {
+  let borderStyles: Record<string, any> = {};
 
   // mapping border size
-  if (data?.width) {
-    Object.entries(data.width).map(([key, value]): void => {
-      borderStyles = {
-        ...borderStyles,
-        [`border-${key}`]: { borderWidth: value },
-        [`border-t-${key}`]: { borderTopWidth: value },
-        [`border-r-${key}`]: { borderRightWidth: value },
-        [`border-b-${key}`]: { borderBottomWidth: value },
-        [`border-l-${key}`]: { borderLeftWidth: value },
-      };
-    });
-  }
+  Object.entries(data.width || {}).forEach(([key, value]) => {
+    borderStyles[`border-${key}`] = { borderWidth: value };
+    borderStyles[`border-t-${key}`] = { borderTopWidth: value };
+    borderStyles[`border-r-${key}`] = { borderRightWidth: value };
+    borderStyles[`border-b-${key}`] = { borderBottomWidth: value };
+    borderStyles[`border-l-${key}`] = { borderLeftWidth: value };
+  });
 
   // mapping border radius
-  if (data?.radius) {
-    Object.entries(data.radius).map(([key, value]): void => {
-      borderStyles = {
-        ...borderStyles,
-        [`rounded-${key}`]: { borderRadius: value },
-        [`rounded-t-${key}`]: {
-          borderTopLeftRadius: value,
-          borderTopRightRadius: value,
-        },
-        [`rounded-r-${key}`]: {
-          borderTopRightRadius: value,
-          borderBottomRightRadius: value,
-        },
-        [`rounded-b-${key}`]: {
-          borderBottomRightRadius: value,
-          borderBottomLeftRadius: value,
-        },
-        [`rounded-l-${key}`]: {
-          borderBottomLeftRadius: value,
-          borderTopLeftRadius: value,
-        },
-        [`rounded-tl-${key}`]: { borderTopLeftRadius: value },
-        [`rounded-tr-${key}`]: { borderTopRightRadius: value },
-        [`rounded-br-${key}`]: { borderBottomRightRadius: value },
-        [`rounded-bl-${key}`]: { borderBottomLeftRadius: value },
-      };
-    });
-  }
+  Object.entries(data.radius || {}).forEach(([key, value]) => {
+    borderStyles[`rounded-${key}`] = { borderRadius: value };
+    borderStyles[`rounded-t-${key}`] = {
+      borderTopLeftRadius: value,
+      borderTopRightRadius: value,
+    };
+    borderStyles[`rounded-r-${key}`] = {
+      borderTopRightRadius: value,
+      borderBottomRightRadius: value,
+    };
+    borderStyles[`rounded-b-${key}`] = {
+      borderBottomRightRadius: value,
+      borderBottomLeftRadius: value,
+    };
+    borderStyles[`rounded-l-${key}`] = {
+      borderBottomLeftRadius: value,
+      borderTopLeftRadius: value,
+    };
+    borderStyles[`rounded-tl-${key}`] = { borderTopLeftRadius: value };
+    borderStyles[`rounded-tr-${key}`] = { borderTopRightRadius: value };
+    borderStyles[`rounded-br-${key}`] = { borderBottomRightRadius: value };
+    borderStyles[`rounded-bl-${key}`] = { borderBottomLeftRadius: value };
+  });
 
   return borderStyles;
 };

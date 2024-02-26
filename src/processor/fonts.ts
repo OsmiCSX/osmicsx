@@ -2,28 +2,18 @@
 import { CustomFonts } from "../types/osmi.types";
 
 // custom fonts processor
-export const customFonts = (object: CustomFonts): object => {
-  let fontStyles: object = {};
+export const customFonts = (fonts: CustomFonts): Record<string, any> => {
+  const fontStyles: Record<string, any> = {};
 
   // mapping font family
-  if (object?.family) {
-    Object.entries(object?.family).map(([key, value]): void => {
-      fontStyles = {
-        ...fontStyles,
-        [`font-${key}`]: { fontFamily: value },
-      };
-    });
-  }
+  Object.entries(fonts.family || {}).forEach(([key, value]) => {
+    fontStyles[`font-${key}`] = { fontFamily: value };
+  });
 
   // mapping font size
-  if (object?.size) {
-    Object.entries(object?.size).map(([key, value]): void => {
-      fontStyles = {
-        ...fontStyles,
-        [`text-${key}`]: { fontSize: value },
-      };
-    });
-  }
+  Object.entries(fonts.size || {}).forEach(([key, value]) => {
+    fontStyles[`text-${key}`] = { fontSize: value };
+  });
 
   return fontStyles;
 };

@@ -9,35 +9,28 @@ export const applyHelper =
     const outputStyles: object[] = [];
 
     try {
-      // Get syntax from each args
-      for (let i = 0; i < args.length; i++) {
-        const arg = args[i];
-        if (arg !== false && arg !== undefined && typeof arg === 'string') {
-          // Init instance
+      args.forEach((arg) => {
+        if (typeof arg === "string") {
           const instanceStyle = new Instance(themeContext?.theme);
+          const syntaxList = arg.split(" ");
 
-          // Get syntax list from each args
-          const syntaxList: string[] = arg.split(" ");
-          const defaultSyntax: string[] = syntaxList.filter(
-            (item: string) => !item.includes("dark:") && !item.includes("notch:") &&
-                      !item.includes("android:") && !item.includes("ios:")
-          );
-
-          defaultSyntax.forEach((syntax: string) => {
-            instanceStyle.applyStyles(syntax);
+          syntaxList.forEach((syntax) => {
+            if (!syntax.includes(":")) {
+              instanceStyle.applyStyles(syntax);
+            }
           });
 
-          // Apply platform and mode specific styles, these will overwrite the default styles
-          syntaxList.forEach((syntax: string) => {
-            if (syntax.includes("android:") || syntax.includes("ios:") ||
-                syntax.includes("notch:") || syntax.includes("dark:")) {
-              instanceStyle.applyStyles(syntax.replace(/(android:|ios:|notch:|dark:)/, ""));
-            }
+          const specificSyntax = syntaxList.filter((syntax) =>
+            syntax.includes(":")
+          );
+          specificSyntax.forEach((syntax) => {
+            instanceStyle.applyStyles(syntax.split(":")[1]);
+            instanceStyle.darkTheme(syntax.split(":")[1], themeContext!.mode);
           });
 
           outputStyles.push(instanceStyle.getOutputStyle());
         }
-      }
+      });
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(`Error in applyHelper: ${error.message}`);
@@ -48,4 +41,3 @@ export const applyHelper =
 
     return outputStyles as any[];
   };
-
