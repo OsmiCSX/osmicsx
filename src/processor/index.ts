@@ -23,64 +23,30 @@ import { customShadows } from "./shadows";
 import { CustomThemeType } from "../types/osmi.types";
 
 // Processor to generate Custom Theme into Pre-defined Styles
-export const customProcessor = (customTheme: CustomThemeType): object => {
-  let finalObject: object = {};
+export const customProcessor = (
+  customTheme: CustomThemeType
+): Record<string, string | object> => {
+  const processors: Record<
+    string,
+    (themeValue: any) => Record<string, unknown>
+  > = {
+    colors: customColors,
+    spacing: customSpacings,
+    border: customBorders,
+    font: customFonts,
+    lineHeight: customLineHeights,
+    letterSpacing: customLetterSpacings,
+    shadow: customShadows,
+  };
 
-  // mapping colors
-  if (customTheme?.colors) {
-    finalObject = {
-      ...finalObject,
-      ...customColors(customTheme?.colors),
-    };
-  }
-
-  // mapping spacing
-  if (customTheme?.spacing) {
-    finalObject = {
-      ...finalObject,
-      ...customSpacings(customTheme?.spacing),
-    };
-  }
-
-  // mapping borders
-  if (customTheme?.border) {
-    finalObject = {
-      ...finalObject,
-      ...customBorders(customTheme?.border),
-    };
-  }
-
-  // mapping font family & size
-  if (customTheme?.font) {
-    finalObject = {
-      ...finalObject,
-      ...customFonts(customTheme?.font),
-    };
-  }
-
-  // mapping line heights
-  if (customTheme?.lineHeight) {
-    finalObject = {
-      ...finalObject,
-      ...customLineHeights(customTheme?.lineHeight),
-    };
-  }
-
-  // mapping letter spacing
-  if (customTheme?.letterSpacing) {
-    finalObject = {
-      ...finalObject,
-      ...customLetterSpacings(customTheme?.letterSpacing),
-    };
-  }
-
-  // mapping shadow
-  if (customTheme?.shadow) {
-    finalObject = {
-      ...finalObject,
-      ...customShadows(customTheme?.shadow),
-    };
-  }
-
-  return finalObject;
+  return Object.entries(processors).reduce((finalObject, [key, processor]) => {
+    const themeValue = customTheme[key as keyof CustomThemeType];
+    if (themeValue) {
+      finalObject = {
+        ...finalObject,
+        ...processor(themeValue),
+      };
+    }
+    return finalObject;
+  }, {} as Record<string, unknown>);
 };

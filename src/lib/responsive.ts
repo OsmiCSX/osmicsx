@@ -6,12 +6,12 @@
  * https://codedlines.com
  */
 import { Component } from "react";
-import { Dimensions, EmitterSubscription, PixelRatio } from "react-native";
+import { Dimensions, PixelRatio, ScaledSize } from "react-native";
 
 // Retrieve initial screen's width & height
 let screenWidth: number = Dimensions.get("window").width;
 let screenHeight: number = Dimensions.get("window").height;
-let dimensionOnChange: EmitterSubscription;
+let dimensionOnChange: { remove: () => void } | null = null;
 
 /**
  * Converts provided width percentage to independent pixel (dp).
@@ -21,7 +21,7 @@ let dimensionOnChange: EmitterSubscription;
  */
 const scaleWidth = (widthPercent: number): number => {
   // Use PixelRatio.roundToNearestPixel method in order to round the layout
-  // size (dp) to the nearest one that correspons to an integer number of pixels.
+  // size (dp) to the nearest one that corresponds to an integer number of pixels.
   return PixelRatio.roundToNearestPixel((screenWidth * widthPercent) / 100);
 };
 
@@ -33,54 +33,39 @@ const scaleWidth = (widthPercent: number): number => {
  */
 const scaleHeight = (heightPercent: number): number => {
   // Use PixelRatio.roundToNearestPixel method in order to round the layout
-  // size (dp) to the nearest one that correspons to an integer number of pixels.
+  // size (dp) to the nearest one that corresponds to an integer number of pixels.
   return PixelRatio.roundToNearestPixel((screenHeight * heightPercent) / 100);
 };
 
 /**
- * Detect osmi style and Convert it into Width / Heihgt / Font Size
- * @param {array} array from split string "/" with type and value
- * @return {object} object style width / height / font size
+ * Detect osmi style and Convert it into Width / Height / Font Size
+ * @param {string[]} array from split string "/" with type and value
+ * @return {object | undefined} object style width / height / font size
  */
 const convertResponsive = ([type, value]: string[]): object | undefined => {
+  const numericValue = Number(value);
+  if (isNaN(numericValue)) {
+    console.warn(`OsmiCSX Responsive: Value is not a number ${value}`);
+    return undefined;
+  }
+
   switch (type) {
     case "w":
-      return {
-        width: scaleWidth(Number(value)),
-      };
-
+      return { width: scaleWidth(numericValue) };
     case "h":
-      return {
-        height: scaleHeight(Number(value)),
-      };
-
+      return { height: scaleHeight(numericValue) };
     case "text":
-      return {
-        fontSize: scaleWidth(Number(value)),
-      };
-
+      return { fontSize: scaleWidth(numericValue) };
     case "min-w":
-      return {
-        minWidth: scaleWidth(Number(value)),
-      };
-
+      return { minWidth: scaleWidth(numericValue) };
     case "min-h":
-      return {
-        minHeight: scaleHeight(Number(value)),
-      };
-
+      return { minHeight: scaleHeight(numericValue) };
     case "max-w":
-      return {
-        maxWidth: scaleWidth(Number(value)),
-      };
-
+      return { maxWidth: scaleWidth(numericValue) };
     case "max-h":
-      return {
-        maxHeight: scaleHeight(Number(value)),
-      };
-
+      return { maxHeight: scaleHeight(numericValue) };
     default:
-      console.warn(`OsmiCSX Responsive: Undefined type of ${type}}`);
+      console.warn(`OsmiCSX Responsive: Undefined type of ${type}`);
       return undefined;
   }
 };
@@ -91,20 +76,24 @@ const convertResponsive = ([type, value]: string[]): object | undefined => {
  * called. State changing occurs for a new state variable with the name 'orientation' that will
  * always hold the current value of the orientation after the 1st orientation change.
  * Invoke it inside the screen's constructor or in componentDidMount lifecycle method.
- * @param {object} that Screen's class component this variable. The function needs it to
+ * @param {Component} that Screen's class component this variable. The function needs it to
  *                      invoke setState method and trigger screen rerender (this.setState()).
  */
 const listenOrientationChange = (that: Component) => {
-  dimensionOnChange = Dimensions.addEventListener("change", (newDimensions) => {
-    // Retrieve and save new dimensions
-    screenWidth = newDimensions.window.width;
-    screenHeight = newDimensions.window.height;
+  dimensionOnChange?.remove();
+  dimensionOnChange = Dimensions.addEventListener(
+    "change",
+    (newDimensions: { window: ScaledSize; screen: ScaledSize }) => {
+      // Retrieve and save new dimensions
+      screenWidth = newDimensions.window.width;
+      screenHeight = newDimensions.window.height;
 
-    // Trigger screen's rerender with a state update of the orientation variable
-    that.setState({
-      orientation: screenWidth < screenHeight ? "portrait" : "landscape",
-    });
-  });
+      // Trigger screen's rerender with a state update of the orientation variable
+      that.setState({
+        orientation: screenWidth < screenHeight ? "portrait" : "landscape",
+      });
+    }
+  );
 };
 
 /**
@@ -114,7 +103,8 @@ const listenOrientationChange = (that: Component) => {
  * avoid adding new listeners every time the same component is re-mounted.
  */
 const removeOrientationListener = () => {
-  dimensionOnChange.remove();
+  dimensionOnChange?.remove();
+  dimensionOnChange = null;
 };
 
 export {

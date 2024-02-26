@@ -1,17 +1,13 @@
-// import type
 import { CustomLetterSpacing } from "../types/osmi.types";
 
-// custom letter spacing processor
-export const customLetterSpacings = (data: CustomLetterSpacing): object => {
-  let letterSpacing: object = {};
-
-  // mapping letter spacing
-  Object.entries(data).map(([key, value]): void => {
-    letterSpacing = {
-      ...letterSpacing,
+export const customLetterSpacings = (
+  data: CustomLetterSpacing
+): Record<string, { letterSpacing: string }> => {
+  return Object.entries(data).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
       [`tracking-${key}`]: { letterSpacing: value },
-    };
-  });
-
-  return letterSpacing;
+    }),
+    {}
+  );
 };

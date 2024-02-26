@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useMemo } from "react";
 import { OsmiContext } from "./context";
 import { applyHelper } from "./apply";
 import { colorHelper } from "./color";
@@ -9,49 +9,46 @@ export const withStyles =
   <P extends ApplyInstance = ApplyInstance>(
     Component: React.ComponentType<P>
   ): React.FC<Omit<P, keyof ApplyInstance>> =>
-  (props) => {
-    const themeContext = useContext(OsmiContext);
+    (props) => {
+      const themeContext = useContext(OsmiContext);
 
-    if (themeContext === null) {
-      throw new Error("You must wrap your components in a OsmiProvider.");
-    }
+      if (themeContext === null) {
+        throw new Error("You must wrap your components in a OsmiProvider.");
+      }
 
-    const apply = useCallback(
-      <T extends NamedStyles<T> | NamedStyles<any>>(...args: (string | boolean | undefined)[]) => {
-        return applyHelper(...args)(themeContext);
-      },
-      [themeContext]
-    );
+      const { scaleWidth, scaleHeight, switchMode } = themeContext;
 
-    const colors = useCallback(
-      (...args: (string | boolean | undefined)[]): string | string[] => {
-        if (args.length === 1) {
-          if (args[0] !== false && args[0] !== undefined) {
-            return colorHelper(args[0] as string)(themeContext);
+      const apply = useMemo(
+        () =>
+          <T extends NamedStyles<T> | NamedStyles<any>>(...args: (string | boolean | undefined)[]) =>
+            applyHelper(...args)(themeContext)
+        ,
+        [themeContext]
+      );
+
+      const colors = useMemo(
+        () =>
+          (...args: (string | boolean | undefined)[]): string | string[] => {
+            if (args.length === 1) {
+              const arg = args[0];
+              return arg !== false && arg !== undefined ? colorHelper(arg)(themeContext) : "";
+            } else if (args.length === 2) {
+              return args.map(arg => arg !== false && arg !== undefined ? colorHelper(arg)(themeContext) : "");
+            }
+            throw Error("Invalid color syntax");
           }
+        ,
+        [themeContext]
+      );
 
-          return "";
-        } else if (args.length === 2) {
-          return args.map((syntax) =>
-            syntax !== false && syntax !== undefined
-              ? colorHelper(syntax)(themeContext)
-              : ""
-          );
-        } else {
-          throw Error("Invalid color syntax");
-        }
-      },
-      [themeContext]
-    );
-
-    return (
-      <Component
-        {...(props as P)}
-        apply={apply}
-        colors={colors}
-        scaleWidth={themeContext.scaleWidth}
-        scaleHeight={themeContext.scaleHeight}
-        switchTheme={themeContext.switchMode}
-      />
-    );
-  };
+      return (
+        <Component
+          {...(props as P)}
+          apply={apply}
+          colors={colors}
+          scaleWidth={scaleWidth}
+          scaleHeight={scaleHeight}
+          switchTheme={switchMode}
+        />
+      );
+    };
