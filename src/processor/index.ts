@@ -27,7 +27,7 @@ export const customProcessor = (
   customTheme: CustomThemeType
 ): Record<string, string | object> => {
   const processors: Record<
-    string,
+    keyof CustomThemeType,
     (themeValue: any) => Record<string, unknown>
   > = {
     colors: customColors,
@@ -39,14 +39,19 @@ export const customProcessor = (
     shadow: customShadows,
   };
 
-  return Object.entries(processors).reduce((finalObject, [key, processor]) => {
-    const themeValue = customTheme[key as keyof CustomThemeType];
-    if (themeValue) {
-      finalObject = {
-        ...finalObject,
-        ...processor(themeValue),
-      };
-    }
-    return finalObject;
-  }, {} as Record<string, unknown>);
+  return Object.entries(processors).reduce<Record<string, any>>(
+    (finalObject, [key, processor]) => {
+      if (key in customTheme) {
+        const themeValue = customTheme[key as keyof CustomThemeType];
+        if (themeValue) {
+          finalObject = {
+            ...finalObject,
+            ...processor(themeValue),
+          };
+        }
+      }
+      return finalObject;
+    },
+    {}
+  );
 };
