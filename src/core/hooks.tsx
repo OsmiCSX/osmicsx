@@ -22,19 +22,20 @@ export const useStyles = (): ApplyInstance => {
 
   const colors = useMemo(
     () =>
-      <T extends string | string[]>(...args: (string | boolean | undefined)[]): T => {
+      <T,>(...args: (string | boolean | undefined)[]): T => {
         if (args.length === 1) {
           return colorHelper(args[0] as string)(themeContext) as T;
         } else if (args.length === 2) {
           return args.map((syntax) =>
             colorHelper(syntax as string)(themeContext)
-          ) as T;
+          ) as unknown as T;
         } else {
           throw Error("Invalid color syntax");
         }
       },
     [themeContext]
   );
+
 
   return {
     apply,

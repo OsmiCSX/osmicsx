@@ -31,9 +31,7 @@ export const withStyles =
 
     const colors = useMemo(
       () =>
-        <T extends string | string[]>(
-          ...args: (string | boolean | undefined)[]
-        ): T => {
+        <T,>(...args: (string | boolean | undefined)[]): T => {
           if (args.length === 1) {
             return colorHelper(args[0] as string)(themeContext) as T;
           } else if (args.length === 2) {
