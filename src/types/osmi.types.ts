@@ -22,7 +22,7 @@ export interface ApplyInstance {
   apply: <T extends NamedStyles<T> | NamedStyles<any>>(
     ...args: (string | boolean | undefined)[]
   ) => any;
-  colors: (...args: (string | boolean | undefined)[]) => string | string[];
+  colors: <T,>(...args: (string | boolean | undefined)[]) => T;
   switchTheme: (newMode: keyof typeof ThemeMode) => void;
   scaleWidth: (width: number) => number;
   scaleHeight: (height: number) => number;
