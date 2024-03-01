@@ -14,5 +14,5 @@ export default (hex: string): string => {
   const num = parseInt(color, 16);
   return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${
     num & 255
-  }, var(--osmi-opacity))`;
+  }, --osmi-opacity)`;
 };
