@@ -32,6 +32,7 @@ import * as alignItems from "./align-items.json";
 import * as alignContent from "./align-content.json";
 import * as alignSelf from "./align-self.json";
 import * as justifyContent from "./justify-content.json";
+import * as gap from "./gap.json";
 
 // Border
 import borderColor from "./border-color";
@@ -127,4 +128,7 @@ export const osmiPredfined: Record<string, object | string> = {
 
   // Z-Index
   ...zIndex,
+
+  // Gap
+  ...gap
 };
