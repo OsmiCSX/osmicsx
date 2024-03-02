@@ -19,6 +19,9 @@ import { customLetterSpacings } from "./letterSpacings";
 // Shadows Processor
 import { customShadows } from "./shadows";
 
+// Gaps Processor
+import { customGaps } from "./gaps";
+
 // import type
 import { CustomThemeType } from "../types/osmi.types";
 
@@ -37,6 +40,7 @@ export const customProcessor = (
     lineHeight: customLineHeights,
     letterSpacing: customLetterSpacings,
     shadow: customShadows,
+    gap: customGaps
   };
 
   return Object.entries(processors).reduce<Record<string, any>>(

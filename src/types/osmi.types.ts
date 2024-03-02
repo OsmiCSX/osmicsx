@@ -65,6 +65,8 @@ export type CustomLineHeight = Record<string | number, number>;
 
 export type CustomLetterSpacing = Record<string | number, number>;
 
+export type CustomGap = Record<string | number, number>;
+
 export type CustomBorder = {
   width?: Record<string | number, number>;
   radius?: Record<string | number, number>;
@@ -96,4 +98,5 @@ export type CustomThemeType = {
   lineHeight?: CustomLineHeight;
   letterSpacing?: CustomLetterSpacing;
   shadow?: CustomShadow;
+  gap?: CustomGap;
 };
