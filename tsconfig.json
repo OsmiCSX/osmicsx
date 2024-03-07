@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "declaration": true,
-    "strict": true,
-    "downlevelIteration": true,
-    "resolveJsonModule": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "jsx": "react-native"
+    "target": "es6",                  // Compile to ECMAScript 6
+    "module": "commonjs",             // Use commonjs module system
+    "esModuleInterop": true,          // Enables interoperability for default imports from modules with no default export
+    "declaration": true,              // Generates corresponding '.d.ts' file for each output file
+    "strict": true,                   // Enable all strict type-checking options
+    "downlevelIteration": true,       // Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'
+    "resolveJsonModule": true,        // Include modules imported with '.json' extension
+    "noImplicitAny": true,            // Raise error on expressions and declarations with an implied 'any' type
+    "noImplicitReturns": true,        // Report error when not all code paths in function return a value
+    "skipLibCheck": true,             // Skip type checking of declaration files
+    "sourceMap": true,                // Generates corresponding '.map' file
+    "jsx": "react-native",            // Process JSX syntax specific to React Native
+    "outDir": "dist"                  // Direct output to 'dist' folder
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "include": ["src"],                 // Include all files in the 'src' directory
+  "exclude": ["node_modules", "**/__tests__/*"] // Exclude 'node_modules' directory and test files
 }

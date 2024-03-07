@@ -1,17 +1,30 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("text-left namespace", () => {
-  expect(apply("text-left")).toEqual({ textAlign: "left" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("text-left")).toEqual([{ textAlign: "left" }]);
 });
 
 test("text-center namespace", () => {
-  expect(apply("text-center")).toEqual({ textAlign: "center" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("text-center")).toEqual([{ textAlign: "center" }]);
 });
 
 test("text-right namespace", () => {
-  expect(apply("text-right")).toEqual({ textAlign: "right" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("text-right")).toEqual([{ textAlign: "right" }]);
 });
 
 test("text-justify namespace", () => {
-  expect(apply("text-justify")).toEqual({ textAlign: "justify" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("text-justify")).toEqual([{ textAlign: "justify" }]);
 });

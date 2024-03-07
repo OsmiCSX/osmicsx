@@ -1,21 +1,36 @@
-import apply from '../../dist/core/apply'
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('items-stretch namespace', () => {
-  expect(apply('items-stretch')).toEqual({ alignItems: "stretch" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('items-stretch')).toEqual([{ alignItems: "stretch" }])
 })
 
 test('items-start namespace', () => {
-  expect(apply('items-start')).toEqual({ alignItems: "flex-start" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('items-start')).toEqual([{ alignItems: "flex-start" }])
 })
 
 test('items-center namespace', () => {
-  expect(apply('items-center')).toEqual({ alignItems: "center" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('items-center')).toEqual([{ alignItems: "center" }])
 })
 
 test('items-end namespace', () => {
-  expect(apply('items-end')).toEqual({ alignItems: "flex-end" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('items-end')).toEqual([{ alignItems: "flex-end" }])
 })
 
 test('items-baseline namespace', () => {
-  expect(apply('items-baseline')).toEqual({ alignItems: "baseline" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('items-baseline')).toEqual([{ alignItems: "baseline" }])
 })

@@ -1,17 +1,30 @@
-import apply from '../../dist/core/apply';
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('row namespace', () => {
-  expect(apply("row")).toEqual({ flexDirection: "row" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("row")).toEqual([{ flexDirection: "row" }]);
 })
 
 test('col namespace', () => {
-  expect(apply("col")).toEqual({ flexDirection: "column" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("col")).toEqual([{ flexDirection: "column" }]);
 })
 
 test('row-reverse namespace', () => {
-  expect(apply("row-reverse")).toEqual({ flexDirection: "row-reverse" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("row-reverse")).toEqual([{ flexDirection: "row-reverse" }]);
 })
 
 test('col-reverse namespace', () => {
-  expect(apply("col-reverse")).toEqual({ flexDirection: "column-reverse" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("col-reverse")).toEqual([{ flexDirection: "column-reverse" }]);
 })

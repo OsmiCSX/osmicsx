@@ -1,25 +1,42 @@
-import apply from '../../dist/core/apply';
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('self-start namespace', () => {
-  expect(apply('self-start')).toEqual({ alignSelf: "flex-start" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('self-start')).toEqual([{ alignSelf: "flex-start" }])
 })
 
 test('self-center namespace', () => {
-  expect(apply('self-center')).toEqual({ alignSelf: "center" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('self-center')).toEqual([{ alignSelf: "center" }])
 })
 
 test('self-end namespace', () => {
-  expect(apply('self-end')).toEqual({ alignSelf: "flex-end" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('self-end')).toEqual([{ alignSelf: "flex-end" }])
 })
 
 test('self-auto namespace', () => {
-  expect(apply('self-auto')).toEqual({ alignSelf: "auto" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('self-auto')).toEqual([{ alignSelf: "auto" }])
 })
 
 test('self-stretch namespace', () => {
-  expect(apply('self-stretch')).toEqual({ alignSelf: "stretch" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('self-stretch')).toEqual([{ alignSelf: "stretch" }])
 })
 
 test('self-baseline namespace', () => {
-  expect(apply('self-baseline')).toEqual({ alignSelf: "baseline" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+  
+  expect(result.current.apply('self-baseline')).toEqual([{ alignSelf: "baseline" }])
 })

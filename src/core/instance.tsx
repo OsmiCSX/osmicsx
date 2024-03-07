@@ -67,7 +67,7 @@ export class Instance {
   }
 
   percentSize(data: string) {
-    if (data.endsWith("%")) {
+    if (data.includes("%")) {
       const splittedSyntax = data.split("%");
       const percentageData = convertPercentage([
         splittedSyntax[0] as StyleType,
@@ -80,32 +80,52 @@ export class Instance {
   }
 
   fixedSize(data: string) {
-    const fixedSizeRegex = /^(max|min)?(w|h)-(\d+)$/;
+    // Match the input against the fixed size pattern
+    const fixedSizeRegex = /^((max|min)-)?(w|h)-(\d+)$/;
     const match = data.match(fixedSizeRegex);
-    if (match) {
-      const [, minMax, type, value] = match;
-      const sizeValue = Number(value);
-      const key = `${minMax ? minMax + "-" : ""}${
-        type === "w" ? "width" : "height"
-      }`;
-      this.updateObject({ [key]: sizeValue });
-    }
+    if (!match) return; // Exit early if the input doesn't match the pattern
+  
+    // Extract the matched groups for easier manipulation
+    const [, , minMax, dimension, value] = match;
+    const numericValue = parseInt(value, 10);
+  
+    // Construct the property name ensuring correct camelCasing
+    const dimensionName = dimension === 'w' ? 'width' : 'height';
+    // Ensure that only the dimension name's first letter is capitalized when necessary
+    const propName = minMax ? `${minMax}${dimensionName.charAt(0).toUpperCase()}${dimensionName.slice(1)}` : dimensionName;
+  
+    // Update the object with the constructed property name and its value
+    this.updateObject({ [propName]: numericValue });
   }
 
   transform(syntax: string) {
-    const transformRegex = /^(translate|scale|rotate|skew)-(x|y|z)?-(-?\d+)$/;
+    const transformRegex = /^(-)?(translate|scale|rotate|skew)(-(x|y|z))?(-?\d+)$/;
     const match = syntax.match(transformRegex);
-    if (match) {
-      const [, transformType, axis, value] = match;
-      const transformValue = axis
-        ? {
-            [`${transformType}${axis.toUpperCase()}`]: `${value}${
-              transformType === "rotate" ? "deg" : ""
-            }`,
-          }
-        : { [transformType]: value };
-      this.updateObject({ transform: [transformValue] });
+    if (!match) return;
+
+    const [, isNegativeMatch, transformType, , axis, value] = match;
+    const isNegative = isNegativeMatch === '-';
+    const transformedValue = isNegative ? -Math.abs(Number(value)) : Number(value);
+
+    let transformValue;
+    switch (transformType) {
+        case 'rotate':
+        case 'skew':
+            transformValue = axis
+                ? { [`${transformType}${axis.toUpperCase()}`]: `${isNegative ? '-' : ''}${Math.abs(transformedValue)}deg` }
+                : { [transformType]: `${isNegative ? '-' : ''}${Math.abs(transformedValue)}deg` };
+            break;
+        case 'scale':
+        case 'translate':
+            transformValue = axis
+                ? { [`${transformType}${axis.toUpperCase()}`]: isNegative ? -Math.abs(Number(value)) : Math.abs(Number(value)) }
+                : { [transformType]: isNegative ? -Math.abs(Number(value)) : Math.abs(Number(value)) };
+            break;
+        default:
+            break;
     }
+
+    this.updateObject({ transform: [transformValue] });
   }
 
   colorOpacity(syntax: string) {

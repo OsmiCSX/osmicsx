@@ -1,17 +1,30 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("align-auto namespace", () => {
-  expect(apply("align-auto")).toEqual({ textAlignVertical: "auto" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("align-auto")).toEqual([{ textAlignVertical: "auto" }]);
 });
 
 test("align-top namespace", () => {
-  expect(apply("align-top")).toEqual({ textAlignVertical: "top" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("align-top")).toEqual([{ textAlignVertical: "top" }]);
 });
 
 test("align-bottom namespace", () => {
-  expect(apply("align-bottom")).toEqual({ textAlignVertical: "bottom" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("align-bottom")).toEqual([{ textAlignVertical: "bottom" }]);
 });
 
 test("align-center namespace", () => {
-  expect(apply("align-center")).toEqual({ textAlignVertical: "center" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("align-center")).toEqual([{ textAlignVertical: "center" }]);
 });

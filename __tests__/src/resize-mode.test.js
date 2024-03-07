@@ -1,21 +1,36 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("resize-cover namespace", () => {
-  expect(apply("resize-cover")).toEqual({ resizeMode: "cover" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("resize-cover")).toEqual([{ resizeMode: "cover" }]);
 });
 
 test("resize-contain namespace", () => {
-  expect(apply("resize-contain")).toEqual({ resizeMode: "contain" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("resize-contain")).toEqual([{ resizeMode: "contain" }]);
 });
 
 test("resize-stretch namespace", () => {
-  expect(apply("resize-stretch")).toEqual({ resizeMode: "stretch" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("resize-stretch")).toEqual([{ resizeMode: "stretch" }]);
 });
 
 test("resize-center namespace", () => {
-  expect(apply("resize-center")).toEqual({ resizeMode: "center" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("resize-center")).toEqual([{ resizeMode: "center" }]);
 });
 
 test("resize-repeat namespace", () => {
-  expect(apply("resize-repeat")).toEqual({ resizeMode: "repeat" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("resize-repeat")).toEqual([{ resizeMode: "repeat" }]);
 });
