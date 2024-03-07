@@ -1,29 +1,48 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("min-w namespace", () => {
-  expect(apply("min-w%50")).toEqual({ minWidth: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("min-w%50")).toEqual([{ minWidth: "50%"}]);
 })
 
 test("w namespace", () => {
-  expect(apply("w%50")).toEqual({ width: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("w%50")).toEqual([{ width: "50%"}]);
 })
 
 test("max-w namespace", () => {
-  expect(apply("max-w%50")).toEqual({ maxWidth: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("max-w%50")).toEqual([{ maxWidth: "50%"}]);
 })
 
 test("min-h namespace", () => {
-  expect(apply("min-h%50")).toEqual({ minHeight: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("min-h%50")).toEqual([{ minHeight: "50%"}]);
 })
 
 test("h namespace", () => {
-  expect(apply("h%50")).toEqual({ height: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("h%50")).toEqual([{ height: "50%"}]);
 })
 
 test("max-h namespace", () => {
-  expect(apply("max-h%50")).toEqual({ maxHeight: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("max-h%50")).toEqual([{ maxHeight: "50%"}]);
 })
 
 test("text namespace", () => {
-  expect(apply("text%50")).toEqual({ fontSize: "50%"})
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("text%50")).toEqual([{ fontSize: "50%"}]);
 })

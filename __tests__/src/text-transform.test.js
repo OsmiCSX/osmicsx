@@ -1,17 +1,30 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("uppercase namespace", () => {
-  expect(apply("uppercase")).toEqual({ textTransform: "uppercase" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("uppercase")).toEqual([{ textTransform: "uppercase" }]);
 });
 
 test("lowercase namespace", () => {
-  expect(apply("lowercase")).toEqual({ textTransform: "lowercase" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("lowercase")).toEqual([{ textTransform: "lowercase" }]);
 });
 
 test("capitalize namespace", () => {
-  expect(apply("capitalize")).toEqual({ textTransform: "capitalize" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("capitalize")).toEqual([{ textTransform: "capitalize" }]);
 });
 
 test("normal-case namespace", () => {
-  expect(apply("normal-case")).toEqual({ textTransform: "normal-case" });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("normal-case")).toEqual([{ textTransform: "normal-case" }]);
 });

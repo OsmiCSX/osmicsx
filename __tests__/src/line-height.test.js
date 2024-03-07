@@ -1,57 +1,90 @@
-import apply from '../../dist/core/apply';
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('leading-normal namespace', () => {
-  expect(apply("leading-normal")).toEqual({ lineHeight: 1.5 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-normal")).toEqual([{ lineHeight: 1.5 }]);
 })
 
 test('leading-relaxed namespace', () => {
-  expect(apply("leading-relaxed")).toEqual({ lineHeight: 1.625 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-relaxed")).toEqual([{ lineHeight: 1.625 }]);
 })
 
 test('leading-tight namespace', () => {
-  expect(apply("leading-tight")).toEqual({ lineHeight: 1.25 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-tight")).toEqual([{ lineHeight: 1.25 }]);
 })
 
 test('leading-loose namespace', () => {
-  expect(apply("leading-loose")).toEqual({ lineHeight: 2 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-loose")).toEqual([{ lineHeight: 2 }]);
 })
 
 test('leading-none namespace', () => {
-  expect(apply("leading-none")).toEqual({ lineHeight: 1 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-none")).toEqual([{ lineHeight: 1 }]);
 })
 
 test('leading-snug namespace', () => {
-  expect(apply("leading-snug")).toEqual({ lineHeight: 1.375 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-snug")).toEqual([{ lineHeight: 1.375 }]);
 })
 
 test('leading-10 namespace', () => {
-  expect(apply("leading-10")).toEqual({ lineHeight: 40 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-10")).toEqual([{ lineHeight: 40 }]);
 })
 
 test('leading-3 namespace', () => {
-  expect(apply("leading-3")).toEqual({ lineHeight: 12 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-3")).toEqual([{ lineHeight: 12 }]);
 })
 
 test('leading-4 namespace', () => {
-  expect(apply("leading-4")).toEqual({ lineHeight: 16 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-4")).toEqual([{ lineHeight: 16 }]);
 })
 
 test('leading-5 namespace', () => {
-  expect(apply("leading-5")).toEqual({ lineHeight: 20 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-5")).toEqual([{ lineHeight: 20 }]);
 })
 
 test('leading-6 namespace', () => {
-  expect(apply("leading-6")).toEqual({ lineHeight: 24 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-6")).toEqual([{ lineHeight: 24 }]);
 })
 
 test('leading-7 namespace', () => {
-  expect(apply("leading-7")).toEqual({ lineHeight: 28 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-7")).toEqual([{ lineHeight: 28 }]);
 })
 
 test('leading-8 namespace', () => {
-  expect(apply("leading-8")).toEqual({ lineHeight: 32 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-8")).toEqual([{ lineHeight: 32 }]);
 })
 
 test('leading-9 namespace', () => {
-  expect(apply("leading-9")).toEqual({ lineHeight: 36 })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("leading-9")).toEqual([{ lineHeight: 36 }]);
 })

@@ -1,21 +1,36 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test("opacity-0 namespace", () => {
-  expect(apply("opacity-0")).toEqual({ opacity: 0 });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("opacity-0")).toEqual([{ opacity: 0 }]);
 });
 
 test("opacity-25 namespace", () => {
-  expect(apply("opacity-25")).toEqual({ opacity: 0.25 });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("opacity-25")).toEqual([{ opacity: 0.25 }]);
 });
 
 test("opacity-50 namespace", () => {
-  expect(apply("opacity-50")).toEqual({ opacity: 0.5 });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("opacity-50")).toEqual([{ opacity: 0.5 }]);
 });
 
 test("opacity-75 namespace", () => {
-  expect(apply("opacity-75")).toEqual({ opacity: 0.75 });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("opacity-75")).toEqual([{ opacity: 0.75 }]);
 });
 
 test("opacity-100 namespace", () => {
-  expect(apply("opacity-100")).toEqual({ opacity: 1 });
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("opacity-100")).toEqual([{ opacity: 1 }]);
 });

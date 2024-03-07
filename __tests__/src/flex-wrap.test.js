@@ -1,9 +1,18 @@
-import apply from "../../dist/core/apply";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
+
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('wrap namespace', () => {
-  expect(apply("wrap")).toEqual({ flexWrap: "wrap" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("wrap")).toEqual([{ flexWrap: "wrap" }]);
 })
 
 test('no-wrap namespace', () => {
-  expect(apply("no-wrap")).toEqual({ flexWrap: "nowrap" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply("no-wrap")).toEqual([{ flexWrap: "nowrap" }]);
 })

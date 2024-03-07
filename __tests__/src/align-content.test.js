@@ -1,26 +1,42 @@
-import apply from "../../dist/core/apply.js";
+import { renderHook } from '@testing-library/react-hooks'
+import { OsmiProvider, useStyles } from '../../dist'
 
+const wrapper = ({ children }) => (
+  <OsmiProvider>{children}</OsmiProvider>
+)
 
 test('content-start namespace', () => {
-  expect(apply('content-start')).toEqual({ alignContent: "flex-start" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-start')).toEqual([{ alignContent: "flex-start" }])
 })
 
 test('content-center namespace', () => {
-  expect(apply('content-center')).toEqual({ alignContent: "center" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-center')).toEqual([{ alignContent: "center" }])
 })
 
 test('content-end namespace', () => {
-  expect(apply('content-end')).toEqual({ alignContent: "flex-end" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-end')).toEqual([{ alignContent: "flex-end" }])
 })
 
 test('content-stretch namespace', () => {
-  expect(apply('content-stretch')).toEqual({ alignContent: "stretch" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-stretch')).toEqual([{ alignContent: "stretch" }])
 })
 
 test('content-between namespace', () => {
-  expect(apply('content-between')).toEqual({ alignContent: "space-between" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-between')).toEqual([{ alignContent: "space-between" }])
 })
 
 test('content-around namespace', () => {
-  expect(apply('content-around')).toEqual({ alignContent: "space-around" })
+  const { result } = renderHook(() => useStyles(), { wrapper })
+
+  expect(result.current.apply('content-around')).toEqual([{ alignContent: "space-around" }])
 })
